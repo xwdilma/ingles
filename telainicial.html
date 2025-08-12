@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Culture Quest — Tela Inicial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <audio id="musica-fundo" src="assets\telainicial\sons\wave.mp3" loop></audio>
+  <div id="transicaoStart" class="hidden"></div>
+
+ <div class="orientation-warning">
+  <img src="assets/telainicial/imagens/rotate.gif" alt="Gire o dispositivo">
+  <h2>Gire seu dispositivo</h2>
+  <p>Para melhor experiência, jogue em modo paisagem (com o celular deitado)</p>
+</div>
+
+  <div class="tela-inicial">
+    <img class="fundo" src="assets/telainicial/imagens/fundo1.png" alt="Fundo Tela Inicial">
+
+    <div class="logo-container">
+      <img src="assets/telainicial/imagens/logo.png" alt="Culture Quest Logo" class="logo">
+    </div>
+
+    <div class="menu-container">
+      <div class="menu-botoes">
+        <button class="botao destaque" data-acao="start">
+          <img src="assets/telainicial/imagens/icon1.png" class="icone-botao" alt="">
+          <span data-i18n="start">Start Quest</span>
+        </button>
+        <button class="botao" data-acao="howto">
+          <img src="assets/telainicial/imagens/icon2.png" class="icone-botao" alt="">
+          <span data-i18n="howto">How to Play</span>
+        </button>
+        <button class="botao" data-acao="settings">
+          <img src="assets/telainicial/imagens/icon3.png" class="icone-botao" alt="">
+          <span data-i18n="settings">Settings</span>
+        </button>
+        <button class="botao" data-acao="credits">
+          <img src="assets/telainicial/imagens/icon4.png" class="icone-botao" alt="">
+          <span data-i18n="credits">Credits</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+<div class="modal" id="modal">
+  <img src="assets/telainicial/imagens/fundo2.png" class="modal-fundo" alt="Card Fundo">
+  
+  <!-- Coloque o pergaminho AQUI dentro -->
+  <div class="pergaminho">
+    <img src="assets/telainicial/imagens/perg1.png" alt="Pergaminho">
+    <span id="titulo-modal">Título</span>
+  </div>
+
+  <div class="modal-conteudo" id="modal-content"></div>
+  
+  <button class="fechar" onclick="fecharModal()">
+    <img src="assets/telainicial/imagens/sair1.png" alt="Fechar">
+  </button>
+</div>
+
+  <!-- LIVRO ANIMADO -->
+<div id="livro-container" class="livro-container">
+  <div id="livro-inner" style="position: relative; max-width: 720px; width: 100%;">
+    <img id="livro-fundo" src="assets/telainicial/imagens/book/Book1.png" alt="Página do Livro" class="livro-imagem">
+
+    <div id="livro-texto" class="livro-texto">
+      <div id="livro-texto-esquerda" class="coluna-esquerda"></div>
+      <div id="livro-texto-direita" class="coluna-direita"></div>
+    </div>
+
+    <button id="livro-prev" class="livro-seta esquerda">&#8592;</button>
+    <button id="livro-next" class="livro-seta direita">&#8594;</button>
+    <div id="livro-pagina" class="livro-pagina">1 / 1</div>
+    <button id="livro-fechar" class="livro-fechar" onclick="fecharLivro()">✖</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

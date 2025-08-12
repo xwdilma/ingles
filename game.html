@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultural English Adventure</title>
+  <style>
+    /* Global Styles */
+    :root {
+      --primary-color: #4a6fa5;
+      --secondary-color: #ff6b6b;
+      --accent-color: #4ecdc4;
+      --dark-color: #2b2d42;
+      --light-color: #f8f9fa;
+      --success-color: #4caf50;
+      --warning-color: #ff9800;
+      --error-color: #f44336;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      overflow-x: hidden;
+    }
+
+    button {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      outline: none;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Lobby Styles */
+    #lobby-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      overflow: hidden;
+    }
+
+    #stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    #lobby-panel {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
+      z-index: 1;
+      position: relative;
+      transform: translateY(0);
+      opacity: 1;
+      transition: all 0.7s ease;
+    }
+
+    #lobby-panel.fade-out {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+
+    #lobby-panel h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .lobby-input {
+      margin-bottom: 1.5rem;
+    }
+
+    .lobby-input label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    .lobby-input input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .lobby-input input:focus {
+      border-color: var(--primary-color);
+    }
+
+    .gender-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .gender-btn {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+      background-color: #eee;
+      color: var(--dark-color);
+    }
+
+    .gender-btn.selecionado {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    #next-btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    #next-btn:hover {
+      background-color: #3a5a8f;
+    }
+
+    /* Character Selection Styles */
+    #character-selection {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: none;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    #character-selection.active {
+      display: flex;
+    }
+
+    #character-header {
+      text-align: center;
+      padding: 1rem;
+      color: white;
+    }
+
+    #character-header h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    #character-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .character-card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .character-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .character-card.highlighted {
+      border: 3px solid var(--accent-color);
+    }
+
+    .character-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .char-name {
+      padding: 0.5rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #character-details {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #character-portrait {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      border: 3px solid var(--primary-color);
+    }
+
+    #character-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #character-info {
+      text-align: center;
+    }
+
+    #char-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    #select-character {
+      background-color: var(--success-color);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    /* Game Container Styles */
+    #game-container {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #f5f7fa;
+    }
+
+    #game-container.active {
+      display: block;
+    }
+
+    /* Navigation Bar */
+    #game-nav {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #player-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    #player-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid white;
+    }
+
+    #player-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #player-name {
+      font-weight: bold;
+    }
+
+    #game-stats {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-value {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    /* Main Game Area */
+    #game-main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Knowledge Check Screen */
+    #knowledge-check {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+
+    #knowledge-check h2 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    #knowledge-check p {
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .knowledge-btn {
+      padding: 1rem 2rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    #know-english {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    #no-english {
+      background-color: var(--warning-color);
+      color: white;
+    }
+
+    /* Level Test Screen */
+    #level-test {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 2rem auto;
+      display: none;
+    }
+
+    #level-test.active {
+      display: block;
+    }
+
+    #level-test h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .test-question {
+      margin-bottom: 1.5rem;
+    }
+
+    .test-question h3 {
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+    }
+
+    .test-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .test-option {
+      padding: 0.8rem;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .test-option:hover {
+      background-color: #e0e0e0;
+    }
+
+    .test-option.selected {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    #submit-test {
+      background-color: var(--success-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    /* Test Results Screen */
+    #test-results {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 2rem auto;
+      text-align: center;
+      display: none;
+    }
+
+    #test-results.active {
+      display: block;
+    }
+
+    #test-results h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    #test-results h3 {
+      margin: 1rem 0;
+      color: var(--dark-color);
+    }
+
+    .level-description {
+      margin-bottom: 1.5rem;
+      text-align: left;
+      color: #555;
+    }
+
+    .improvement-areas {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+
+    .improvement-areas ul {
+      list-style-position: inside;
+      margin-top: 0.5rem;
+    }
+
+    #start-learning {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    /* Game Modes Screen */
+    #game-modes {
+      display: none;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #game-modes.active {
+      display: block;
+    }
+
+    #game-modes h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+
+    .mode-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .mode-card {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .mode-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .mode-image {
+      height: 150px;
+      background-color: var(--primary-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 3rem;
+    }
+
+    .mode-content {
+      padding: 1.5rem;
+    }
+
+    .mode-content h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .mode-content p {
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .play-btn {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    /* Multiplayer Screen */
+    #multiplayer-screen {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 2rem auto;
+      display: none;
+    }
+
+    #multiplayer-screen.active {
+      display: block;
+    }
+
+    #multiplayer-screen h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .multiplayer-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mp-option {
+      padding: 1rem;
+      background-color: #f5f7fa;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+
+    .mp-option:hover {
+      background-color: #e0e6ed;
+    }
+
+    .mp-option h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    #room-code-display {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: var(--dark-color);
+      color: white;
+      border-radius: 8px;
+      text-align: center;
+      font-family: monospace;
+      font-size: 1.5rem;
+      display: none;
+    }
+
+    #join-room-form {
+      margin-top: 1rem;
+      display: none;
+    }
+
+    #join-room-form input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    #join-room-btn {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    /* Mini-game Container */
+    #minigame-container {
+      display: none;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #minigame-container.active {
+      display: block;
+    }
+
+    #minigame-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    #minigame-title {
+      color: var(--primary-color);
+    }
+
+    #minigame-progress {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .progress-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .progress-circle.active {
+      background-color: var(--accent-color);
+    }
+
+    .progress-circle.completed {
+      background-color: var(--success-color);
+    }
+
+    /* Dialogue Game */
+    #dialogue-game {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    #dialogue-character {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #dialogue-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--primary-color);
+    }
+
+    #dialogue-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #dialogue-text {
+      flex: 1;
+      padding: 1rem;
+      background-color: #f5f7fa;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    #dialogue-text:after {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 20px;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-right-color: #f5f7fa;
+      border-left: 0;
+    }
+
+    #dialogue-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .dialogue-option {
+      padding: 1rem;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dialogue-option:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Word Scramble Game */
+    #word-scramble-game {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    #scramble-word {
+      font-size: 2rem;
+      letter-spacing: 0.5rem;
+      margin: 1.5rem 0;
+      color: var(--primary-color);
+    }
+
+    #scramble-hint {
+      margin-bottom: 1.5rem;
+      color: #555;
+      font-style: italic;
+    }
+
+    #scramble-letters {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .scramble-letter {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .scramble-letter:hover {
+      transform: translateY(-3px);
+    }
+
+    #scramble-submit {
+      background-color: var(--success-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    /* Sentence Builder Game */
+    #sentence-builder-game {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    #sentence-instruction {
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
+
+    #sentence-target {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background-color: #f5f7fa;
+      border-radius: 8px;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    #sentence-words {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .sentence-word {
+      padding: 0.8rem;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .sentence-word:hover {
+      background-color: #e0e0e0;
+    }
+
+    #sentence-construction {
+      min-height: 60px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    #sentence-check {
+      background-color: var(--success-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    /* 4 Pics 1 Word Game */
+    #pics-word-game {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    #pics-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .pic-item {
+      height: 150px;
+      background-color: #f5f7fa;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .pic-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #word-options {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .word-option {
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .word-option:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Feedback Modal */
+    .feedback-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .feedback-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .feedback-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    .feedback-correct {
+      color: var(--success-color);
+    }
+
+    .feedback-incorrect {
+      color: var(--error-color);
+    }
+
+    .feedback-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .feedback-message {
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .cultural-tip {
+      background-color: #f5f7fa;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .cultural-tip h4 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .next-btn {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    /* Badges System */
+    #badges-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    #badges-button {
+      background-color: var(--secondary-color);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #badges-popup {
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 300px;
+      background-color: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      display: none;
+    }
+
+    #badges-popup.active {
+      display: block;
+    }
+
+    #badges-popup h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .badge-item.unlocked {
+      background-color: #f5f7fa;
+    }
+
+    .badge-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+    }
+
+    .badge-icon.locked {
+      background-color: #ddd;
+    }
+
+    .badge-info h4 {
+      color: var(--dark-color);
+      margin-bottom: 0.2rem;
+    }
+
+    .badge-info p {
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    /* Ambassador Ceremony */
+    #ambassador-ceremony {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      display: none;
+    }
+
+    #ambassador-ceremony.active {
+      display: flex;
+    }
+
+    #ceremony-character {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid var(--accent-color);
+      margin-bottom: 2rem;
+    }
+
+    #ceremony-character img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #ceremony-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    #ceremony-message {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    #ceremony-certificate {
+      background-color: #111;
+      border: 10px solid var(--primary-color);
+      padding: 2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    #ceremony-certificate h2 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    #ceremony-certificate h3 {
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    #ceremony-stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 1.5rem 0;
+    }
+
+    .ceremony-stat {
+      text-align: center;
+    }
+
+    .ceremony-stat-value {
+      font-size: 2rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+
+    #ceremony-close {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      #game-nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      #game-stats {
+        width: 100%;
+        justify-content: space-around;
+      }
+
+      .mode-cards {
+        grid-template-columns: 1fr;
+      }
+
+      #pics-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Lobby Screen -->
+  <div id="lobby-container">
+    <canvas id="stars"></canvas>
+    <div id="lobby-panel">
+      <h1>Create Your Character</h1>
+      
+      <div class="lobby-input">
+        <label for="player-name">Name:</label>
+        <input type="text" id="player-name" placeholder="Enter your name">
+      </div>
+      
+      <div class="lobby-input">
+        <label>Gender:</label>
+        <div class="gender-buttons">
+          <button class="gender-btn" data-gender="male">♂ Male</button>
+          <button class="gender-btn" data-gender="female">♀ Female</button>
+          <button class="gender-btn" data-gender="other">⚧ Other</button>
+        </div>
+      </div>
+      
+      <div class="lobby-input">
+        <label for="player-orientation">Sexual Orientation (optional):</label>
+        <input type="text" id="player-orientation" placeholder="Type orientation">
+      </div>
+      
+      <button id="next-btn" disabled>Next</button>
+    </div>
+  </div>
+
+  <!-- Character Selection Screen -->
+  <div id="character-selection">
+    <div id="character-header">
+      <h1>Choose Your Character</h1>
+      <p>Characters matching your profile will be highlighted</p>
+    </div>
+    
+    <div id="character-grid"></div>
+    
+    <div id="character-details">
+      <div id="character-portrait"></div>
+      <div id="character-info">
+        <div id="char-name"></div>
+        <div id="char-gender"></div>
+        <div id="char-orientation"></div>
+        <div id="char-bio"></div>
+      </div>
+      <button id="select-character" disabled>Select Character</button>
+    </div>
+  </div>
+
+  <!-- Main Game Container -->
+  <div id="game-container">
+    <!-- Navigation Bar -->
+    <nav id="game-nav">
+      <div id="player-info">
+        <div id="player-avatar"></div>
+        <div id="player-name"></div>
+      </div>
+      
+      <div id="game-stats">
+        <div class="stat">
+          <div class="stat-value" id="xp-stat">0</div>
+          <div class="stat-label">XP</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="level-stat">1</div>
+          <div class="stat-label">Level</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="streak-stat">0</div>
+          <div class="stat-label">Day Streak</div>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Main Game Area -->
+    <main id="game-main">
+      <!-- Knowledge Check Screen -->
+      <section id="knowledge-check">
+        <h2>Welcome to Cultural English Adventure!</h2>
+        <p>Do you already know some English or are you starting from zero?</p>
+        <button class="knowledge-btn" id="know-english">I know some English</button>
+        <button class="knowledge-btn" id="no-english">I'm starting from zero</button>
+      </section>
+      
+      <!-- Level Test Screen -->
+      <section id="level-test">
+        <h2>English Level Assessment</h2>
+        <div id="test-questions"></div>
+        <button id="submit-test">Submit Test</button>
+      </section>
+      
+      <!-- Test Results Screen -->
+      <section id="test-results">
+        <h2>Your English Level</h2>
+        <h3 id="test-level">Beginner (A1)</h3>
+        <div class="level-description" id="level-description"></div>
+        <h3>Areas to Improve</h3>
+        <div class="improvement-areas" id="improvement-areas"></div>
+        <button id="start-learning">Start Learning</button>
+      </section>
+      
+      <!-- Game Modes Screen -->
+      <section id="game-modes">
+        <h2>Choose Your Learning Adventure</h2>
+        <div class="mode-cards">
+          <div class="mode-card" data-mode="dialogue">
+            <div class="mode-image">💬</div>
+            <div class="mode-content">
+              <h3>Cultural Dialogues</h3>
+              <p>Practice real conversations with cultural insights from your guide.</p>
+              <div class="play-btn">Play</div>
+            </div>
+          </div>
+          
+          <div class="mode-card" data-mode="scramble">
+            <div class="mode-image">🔤</div>
+            <div class="mode-content">
+              <h3>Word Scramble</h3>
+              <p>Unscramble letters to form English words with cultural significance.</p>
+              <div class="play-btn">Play</div>
+            </div>
+          </div>
+          
+          <div class="mode-card" data-mode="sentence">
+            <div class="mode-image">📝</div>
+            <div class="mode-content">
+              <h3>Sentence Builder</h3>
+              <p>Construct proper sentences while learning grammar rules.</p>
+              <div class="play-btn">Play</div>
+            </div>
+          </div>
+          
+          <div class="mode-card" data-mode="pics">
+            <div class="mode-image">🖼️</div>
+            <div class="mode-content">
+              <h3>4 Pics 1 Word</h3>
+              <p>Guess the English word that connects four cultural images.</p>
+              <div class="play-btn">Play</div>
+            </div>
+          </div>
+          
+          <div class="mode-card" data-mode="multiplayer">
+            <div class="mode-image">👥</div>
+            <div class="mode-content">
+              <h3>Multiplayer Challenge</h3>
+              <p>Play with friends and learn together in real-time.</p>
+              <div class="play-btn">Play</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Multiplayer Screen -->
+      <section id="multiplayer-screen">
+        <h2>Multiplayer Mode</h2>
+        <div class="multiplayer-options">
+          <div class="mp-option" id="create-room">
+            <h3>Create Room</h3>
+            <p>Start a new game and invite friends</p>
+          </div>
+          <div class="mp-option" id="join-room">
+            <h3>Join Room</h3>
+            <p>Enter an existing game with a code</p>
+          </div>
+        </div>
+        
+        <div id="room-code-display">
+          <p>Your Room Code:</p>
+          <div id="room-code">ABCD12</div>
+          <p>Share this code with your friend</p>
+        </div>
+        
+        <div id="join-room-form">
+          <input type="text" id="room-code-input" placeholder="Enter room code">
+          <button id="join-room-btn">Join Room</button>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Mini-game Container -->
+    <div id="minigame-container">
+      <div id="minigame-header">
+        <h2 id="minigame-title">Cultural Dialogue</h2>
+        <div id="minigame-progress">
+          <div class="progress-circle">1</div>
+          <div class="progress-circle">2</div>
+          <div class="progress-circle">3</div>
+          <div class="progress-circle">4</div>
+          <div class="progress-circle">5</div>
+        </div>
+      </div>
+      
+      <!-- Dialogue Game -->
+      <div id="dialogue-game">
+        <div id="dialogue-character">
+          <div id="dialogue-avatar"></div>
+          <div id="dialogue-text"></div>
+        </div>
+        <div id="dialogue-options"></div>
+      </div>
+      
+      <!-- Word Scramble Game -->
+      <div id="word-scramble-game">
+        <h3>Unscramble the word!</h3>
+        <div id="scramble-word">S C R A M B L E</div>
+        <div id="scramble-hint">Hint: A popular food in the UK</div>
+        <div id="scramble-letters"></div>
+        <button id="scramble-submit">Submit</button>
+      </div>
+      
+      <!-- Sentence Builder Game -->
+      <div id="sentence-builder-game">
+        <div id="sentence-instruction">Build the correct sentence by clicking on the words in order:</div>
+        <div id="sentence-target">"Would you like some tea?"</div>
+        <div id="sentence-words"></div>
+        <div id="sentence-construction"></div>
+        <button id="sentence-check">Check</button>
+      </div>
+      
+      <!-- 4 Pics 1 Word Game -->
+      <div id="pics-word-game">
+        <h3>What word connects these images?</h3>
+        <div id="pics-container">
+          <div class="pic-item"></div>
+          <div class="pic-item"></div>
+          <div class="pic-item"></div>
+          <div class="pic-item"></div>
+        </div>
+        <div id="word-options"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Feedback Modal -->
+  <div class="feedback-modal">
+    <div class="feedback-content">
+      <div class="feedback-icon">✓</div>
+      <div class="feedback-message feedback-correct">Correct!</div>
+      <div class="cultural-tip">
+        <h4>Cultural Tip</h4>
+        <p id="cultural-tip-text">In the UK, people often say "cheers" instead of "thank you".</p>
+      </div>
+      <button class="next-btn">Continue</button>
+    </div>
+  </div>
+  
+  <!-- Badges System -->
+  <div id="badges-container">
+    <button id="badges-button">🏆</button>
+    <div id="badges-popup">
+      <h3>Your Achievements</h3>
+      <div class="badge-item unlocked">
+        <div class="badge-icon">🌐</div>
+        <div class="badge-info">
+          <h4>Cultural Explorer</h4>
+          <p>Learned 10 cultural facts</p>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon locked">🔒</div>
+        <div class="badge-info">
+          <h4>Grammar Master</h4>
+          <p>Complete 5 sentence exercises</p>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon locked">🔒</div>
+        <div class="badge-info">
+          <h4>Word Wizard</h4>
+          <p>Solve 10 word puzzles</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Ambassador Ceremony -->
+  <div id="ambassador-ceremony">
+    <div id="ceremony-character"></div>
+    <h1 id="ceremony-title">Congratulations!</h1>
+    <p id="ceremony-message">You've completed your cultural journey through English-speaking countries with empathy, knowledge and respect.</p>
+    
+    <div id="ceremony-certificate">
+      <h2>Certificate of Cultural Ambassador</h2>
+      <h3 id="certificate-name">Presented to [Player Name]</h3>
+      <p>For demonstrating exceptional understanding of English language and culture</p>
+      
+      <div id="ceremony-stats">
+        <div class="ceremony-stat">
+          <div class="ceremony-stat-value" id="ceremony-xp">0</div>
+          <div>Total XP</div>
+        </div>
+        <div class="ceremony-stat">
+          <div class="ceremony-stat-value" id="ceremony-level">1</div>
+          <div>Level</div>
+        </div>
+        <div class="ceremony-stat">
+          <div class="ceremony-stat-value" id="ceremony-badges">0</div>
+          <div>Badges</div>
+        </div>
+      </div>
+    </div>
+    
+    <button id="ceremony-close">Finish</button>
+  </div>
+
+  <script>
+    // Game Data
+    const gameData = {
+      playerProfile: {},
+      characters: [
+        {
+          id: 1,
+          name: "Luna",
+          gender: "Female",
+          orientation: "Bisexual",
+          bio: "A free-spirited artist who expresses herself through vibrant murals. She believes art can bridge cultural gaps.",
+          image: "https://i.imgur.com/JR6hW3p.png",
+          traits: ["artistic", "creative", "expressive"]
+        },
+        {
+          id: 2,
+          name: "Mira",
+          gender: "Female",
+          orientation: "Lesbian",
+          bio: "A dedicated anthropologist researching indigenous cultures. She's passionate about preserving traditions.",
+          image: "https://i.imgur.com/KL4Vw4E.png",
+          traits: ["academic", "curious", "respectful"]
+        },
+        {
+          id: 3,
+          name: "Kai",
+          gender: "Male",
+          orientation: "Gay",
+          bio: "A chef specializing in fusion cuisine. He loves combining flavors from different cultures in surprising ways.",
+          image: "https://i.imgur.com/VvQ0X2p.png",
+          traits: ["passionate", "innovative", "social"]
+        },
+        {
+          id: 4,
+          name: "Rio",
+          gender: "Male",
+          orientation: "Bisexual",
+          bio: "A world-traveling musician who collects instruments and stories from every culture he encounters.",
+          image: "https://i.imgur.com/5tQZ7dQ.png",
+          traits: ["musical", "adaptable", "storyteller"]
+        },
+        {
+          id: 5,
+          name: "Zee",
+          gender: "Non-binary",
+          orientation: "Pansexual",
+          bio: "A digital nomad creating content about cultural intersections in the modern world.",
+          image: "https://i.imgur.com/8WJjZ6k.png",
+          traits: ["tech-savvy", "inclusive", "communicative"]
+        },
+        {
+          id: 6,
+          name: "Ari",
+          gender: "Genderfluid",
+          orientation: "Queer",
+          bio: "A historian focused on overlooked narratives and marginalized voices throughout history.",
+          image: "https://i.imgur.com/3qY9X2e.png",
+          traits: ["thoughtful", "insightful", "justice-oriented"]
+        }
+      ],
+      testQuestions: [
+        {
+          question: "Choose the correct sentence:",
+          options: [
+            "She go to school every day.",
+            "She goes to school every day.",
+            "She going to school every day.",
+            "She is go to school every day."
+          ],
+          answer: 1,
+          difficulty: "A1"
+        },
+        {
+          question: "What is the past tense of 'eat'?",
+          options: ["eated", "ate", "eaten", "eating"],
+          answer: 1,
+          difficulty: "A1"
+        },
+        {
+          question: "Which sentence is correct?",
+          options: [
+            "I have been to London last year.",
+            "I was in London last year.",
+            "I went to London last year.",
+            "Both 2 and 3 are correct"
+          ],
+          answer: 3,
+          difficulty: "A2"
+        },
+        {
+          question: "Choose the correct word: The ___ of this book is very interesting.",
+          options: ["author", "writer", "auther", "writter"],
+          answer: 0,
+          difficulty: "A2"
+        },
+        {
+          question: "Which sentence uses the present perfect correctly?",
+          options: [
+            "I have seen that movie yesterday.",
+            "I have seen that movie.",
+            "I saw that movie.",
+            "I was seeing that movie."
+          ],
+          answer: 1,
+          difficulty: "B1"
+        },
+        {
+          question: "Identify the correct passive voice sentence:",
+          options: [
+            "The letter was written by Sarah.",
+            "Sarah was written the letter.",
+            "The letter written by Sarah.",
+            "Sarah has written the letter."
+          ],
+          answer: 0,
+          difficulty: "B1"
+        },
+        {
+          question: "Choose the correct phrasal verb: Please ___ the light when you leave.",
+          options: ["turn off", "turn on", "turn up", "turn down"],
+          answer: 0,
+          difficulty: "B1"
+        },
+        {
+          question: "Which sentence is grammatically correct?",
+          options: [
+            "If I would have known, I would have come earlier.",
+            "If I had known, I would have come earlier.",
+            "If I knew, I would have come earlier.",
+            "If I have known, I would come earlier."
+          ],
+          answer: 1,
+          difficulty: "B2"
+        },
+        {
+          question: "Choose the correct word: His argument was not ___ to the discussion.",
+          options: ["pertinent", "persistent", "permanent", "prevalent"],
+          answer: 0,
+          difficulty: "B2"
+        },
+        {
+          question: "Identify the sentence with the correct conditional:",
+          options: [
+            "If I were you, I will take that job.",
+            "If I was you, I would take that job.",
+            "If I were you, I would take that job.",
+            "If I am you, I would take that job."
+          ],
+          answer: 2,
+          difficulty: "B2"
+        },
+        {
+          question: "Which sentence correctly uses inversion for emphasis?",
+          options: [
+            "Never I have seen such a beautiful sunset.",
+            "Never have I seen such a beautiful sunset.",
+            "Never did I see such a beautiful sunset.",
+            "Never I saw such a beautiful sunset."
+          ],
+          answer: 1,
+          difficulty: "C1"
+        },
+        {
+          question: "Choose the correct word: The ___ of the novel was so complex that I had to read it twice.",
+          options: ["plot", "plate", "plait", "plut"],
+          answer: 0,
+          difficulty: "C1"
+        }
+      ],
+      levelDescriptions: {
+        "A1": "Beginner: You can understand and use familiar everyday expressions and very basic phrases aimed at the satisfaction of needs of a concrete type.",
+        "A2": "Elementary: You can understand sentences and frequently used expressions related to areas of most immediate relevance.",
+        "B1": "Intermediate: You can understand the main points of clear standard input on familiar matters regularly encountered in work, school, leisure, etc.",
+        "B2": "Upper Intermediate: You can understand the main ideas of complex text on both concrete and abstract topics, including technical discussions in your field of specialization.",
+        "C1": "Advanced: You can understand a wide range of demanding, longer texts, and recognize implicit meaning."
+      },
+      improvementAreas: {
+        "A1": ["Basic vocabulary", "Simple present tense", "Everyday expressions"],
+        "A2": ["Past tenses", "Future forms", "Common phrasal verbs"],
+        "B1": ["Present perfect", "Conditionals", "Modal verbs"],
+        "B2": ["Passive voice", "Reported speech", "Complex sentence structures"],
+        "C1": ["Advanced vocabulary", "Nuanced expressions", "Formal language"]
+      },
+      dialogueScenes: [
+        {
+          id: 1,
+          text: "Hi [name]! Welcome to London. I'm so excited to show you around! Did you know that in the UK, we call these 'chips' instead of 'fries'?",
+          options: [
+            "Yes, I know that! What else is different here?",
+            "No, I didn't know that. Thanks for telling me!",
+            "Why do you say it differently?"
+          ],
+          correct: 1,
+          culturalTip: "In the UK, 'chips' are what Americans call 'fries', while 'crisps' are what Americans call 'chips'."
+        },
+        {
+          id: 2,
+          text: "Let's go to a pub for lunch. In my culture, it's polite to say 'please' when ordering and 'thank you' when you receive your food.",
+          options: [
+            "Can I have a burger please?",
+            "Give me a burger.",
+            "I want burger."
+          ],
+          correct: 0,
+          culturalTip: "British people value politeness in service interactions. Always say 'please' and 'thank you'."
+        },
+        {
+          id: 3,
+          text: "Oh look, it's starting to rain! In England, we talk about the weather a lot because it changes so often. What would you say?",
+          options: [
+            "The weather is bad.",
+            "It's quite rainy today, isn't it?",
+            "I hate the rain."
+          ],
+          correct: 1,
+          culturalTip: "Brits often use tag questions ('isn't it?', 'don't you?') to make statements sound more polite and conversational."
+        },
+        {
+          id: 4,
+          text: "We're going to take the tube now. That's what we call the subway in London. Do you know how to ask for directions?",
+          options: [
+            "Where is the tube station?",
+            "Tell me where the subway is.",
+            "I need to find the metro."
+          ],
+          correct: 0,
+          culturalTip: "In London, the subway system is called 'the tube' or 'the underground', not 'subway' or 'metro'."
+        },
+        {
+          id: 5,
+          text: "Let's have afternoon tea! This is a very British tradition. How would you ask for milk in your tea?",
+          options: [
+            "Could I have some milk, please?",
+            "Milk!",
+            "I need milk in my tea now."
+          ],
+          correct: 0,
+          culturalTip: "Afternoon tea is a light meal typically eaten between 3:30 and 5pm. It includes tea, sandwiches, scones, and cakes."
+        }
+      ],
+      wordScrambleGames: [
+        {
+          word: "BISCUIT",
+          scrambled: "BICITSU",
+          hint: "What British people call a cookie",
+          category: "Food"
+        },
+        {
+          word: "ELEVATOR",
+          scrambled: "EVETALOR",
+          hint: "What Americans call a lift",
+          category: "Everyday"
+        },
+        {
+          word: "APARTMENT",
+          scrambled: "APTMENTAR",
+          hint: "What Americans call a flat",
+          category: "Housing"
+        },
+        {
+          word: "TRUNK",
+          scrambled: "TKRUN",
+          hint: "What Americans call the boot of a car",
+          category: "Transport"
+        },
+        {
+          word: "FALL",
+          scrambled: "FLLLA",
+          hint: "What Americans call autumn",
+          category: "Seasons"
+        }
+      ],
+      sentenceBuilderGames: [
+        {
+          sentence: "Would you like some tea?",
+          words: ["you", "like", "some", "would", "tea", "?"],
+          grammarTip: "In questions with 'would', the verb comes before the subject."
+        },
+        {
+          sentence: "I have been to London twice.",
+          words: ["been", "I", "London", "have", "twice", "to", "."],
+          grammarTip: "The present perfect tense is used for experiences without a specific time."
+        },
+        {
+          sentence: "She is reading a book about British history.",
+          words: ["reading", "a", "is", "book", "about", "she", "British", "history", "."],
+          grammarTip: "The present continuous (is + -ing) is used for actions happening now."
+        },
+        {
+          sentence: "They were watching TV when I arrived.",
+          words: ["TV", "were", "I", "when", "arrived", "they", "watching", "."],
+          grammarTip: "Use past continuous (were watching) for the longer action interrupted by the simple past (arrived)."
+        },
+        {
+          sentence: "If I had more time, I would visit the museum.",
+          words: ["had", "I", "would", "time", "the", "visit", "if", "more", "museum", ",", "I", "."],
+          grammarTip: "This is the second conditional, used for hypothetical situations."
+        }
+      ],
+      picsWordGames: [
+        {
+          word: "QUEUE",
+          images: [
+            "https://i.imgur.com/JR6hW3p.png",
+            "https://i.imgur.com/KL4Vw4E.png",
+            "https://i.imgur.com/VvQ0X2p.png",
+            "https://i.imgur.com/5tQZ7dQ.png"
+          ],
+          options: ["LINE", "QUEUE", "WAIT", "CROWD"],
+          hint: "British people are famous for forming these"
+        },
+        {
+          word: "BOOTS",
+          images: [
+            "https://i.imgur.com/JR6hW3p.png",
+            "https://i.imgur.com/KL4Vw4E.png",
+            "https://i.imgur.com/VvQ0X2p.png",
+            "https://i.imgur.com/5tQZ7dQ.png"
+          ],
+          options: ["SHOES", "BOOTS", "TRUNK", "HOOD"],
+          hint: "What British people call the trunk of a car"
+        },
+        {
+          word: "HOLIDAY",
+          images: [
+            "https://i.imgur.com/JR6hW3p.png",
+            "https://i.imgur.com/KL4Vw4E.png",
+            "https://i.imgur.com/VvQ0X2p.png",
+            "https://i.imgur.com/5tQZ7dQ.png"
+          ],
+          options: ["VACATION", "HOLIDAY", "BREAK", "TRIP"],
+          hint: "What British people call a vacation"
+        },
+        {
+          word: "BISCUITS",
+          images: [
+            "https://i.imgur.com/JR6hW3p.png",
+            "https://i.imgur.com/KL4Vw4E.png",
+            "https://i.imgur.com/VvQ0X2p.png",
+            "https://i.imgur.com/5tQZ7dQ.png"
+          ],
+          options: ["COOKIES", "CRACKERS", "BISCUITS", "CAKES"],
+          hint: "What British people call cookies"
+        },
+        {
+          word: "LORRY",
+          images: [
+            "https://i.imgur.com/JR6hW3p.png",
+            "https://i.imgur.com/KL4Vw4E.png",
+            "https://i.imgur.com/VvQ0X2p.png",
+            "https://i.imgur.com/5tQZ7dQ.png"
+          ],
+          options: ["TRUCK", "LORRY", "VAN", "BUS"],
+          hint: "What British people call a truck"
+        }
+      ],
+      badges: [
+        {
+          id: 1,
+          name: "Cultural Explorer",
+          description: "Learned 10 cultural facts",
+          icon: "🌐",
+          unlocked: true
+        },
+        {
+          id: 2,
+          name: "Grammar Master",
+          description: "Complete 5 sentence exercises",
+          icon: "📚",
+          unlocked: false
+        },
+        {
+          id: 3,
+          name: "Word Wizard",
+          description: "Solve 10 word puzzles",
+          icon: "🔤",
+          unlocked: false
+        },
+        {
+          id: 4,
+          name: "Dialogue Pro",
+          description: "Complete all dialogue scenarios",
+          icon: "💬",
+          unlocked: false
+        },
+        {
+          id: 5,
+          name: "Empathy Ambassador",
+          description: "Make culturally sensitive choices",
+          icon: "❤️",
+          unlocked: false
+        }
+      ],
+      currentGame: null,
+      currentGameIndex: 0,
+      score: 0,
+      xp: 0,
+      level: 1,
+      streak: 0,
+      englishLevel: null,
+      testAnswers: []
+    };
+
+    // DOM Elements
+    const elements = {
+      lobby: {
+        container: document.getElementById('lobby-container'),
+        panel: document.getElementById('lobby-panel'),
+        nameInput: document.getElementById('player-name'),
+        genderBtns: document.querySelectorAll('.gender-btn'),
+        orientationInput: document.getElementById('player-orientation'),
+        nextBtn: document.getElementById('next-btn')
+      },
+      characterSelection: {
+        container: document.getElementById('character-selection'),
+        grid: document.getElementById('character-grid'),
+        portrait: document.getElementById('character-portrait'),
+        name: document.getElementById('char-name'),
+        gender: document.getElementById('char-gender'),
+        orientation: document.getElementById('char-orientation'),
+        bio: document.getElementById('char-bio'),
+        selectBtn: document.getElementById('select-character')
+      },
+      game: {
+        container: document.getElementById('game-container'),
+        nav: document.getElementById('game-nav'),
+        playerAvatar: document.getElementById('player-avatar'),
+        playerName: document.getElementById('player-name'),
+        xpStat: document.getElementById('xp-stat'),
+        levelStat: document.getElementById('level-stat'),
+        streakStat: document.getElementById('streak-stat'),
+        main: document.getElementById('game-main')
+      },
+      knowledgeCheck: {
+        section: document.getElementById('knowledge-check'),
+        knowEnglishBtn: document.getElementById('know-english'),
+        noEnglishBtn: document.getElementById('no-english')
+      },
+      levelTest: {
+        section: document.getElementById('level-test'),
+        questions: document.getElementById('test-questions'),
+        submitBtn: document.getElementById('submit-test')
+      },
+      testResults: {
+        section: document.getElementById('test-results'),
+        level: document.getElementById('test-level'),
+        description: document.getElementById('level-description'),
+        areas: document.getElementById('improvement-areas'),
+        startBtn: document.getElementById('start-learning')
+      },
+      gameModes: {
+        section: document.getElementById('game-modes'),
+        cards: document.querySelectorAll('.mode-card')
+      },
+      multiplayer: {
+        section: document.getElementById('multiplayer-screen'),
+        createRoom: document.getElementById('create-room'),
+        joinRoom: document.getElementById('join-room'),
+        roomCodeDisplay: document.getElementById('room-code-display'),
+        roomCode: document.getElementById('room-code'),
+        joinForm: document.getElementById('join-room-form'),
+        joinBtn: document.getElementById('join-room-btn')
+      },
+      minigame: {
+        container: document.getElementById('minigame-container'),
+        title: document.getElementById('minigame-title'),
+        progress: document.getElementById('minigame-progress')
+      },
+      dialogueGame: {
+        container: document.getElementById('dialogue-game'),
+        avatar: document.getElementById('dialogue-avatar'),
+        text: document.getElementById('dialogue-text'),
+        options: document.getElementById('dialogue-options')
+      },
+      scrambleGame: {
+        container: document.getElementById('word-scramble-game'),
+        word: document.getElementById('scramble-word'),
+        hint: document.getElementById('scramble-hint'),
+        letters: document.getElementById('scramble-letters'),
+        submit: document.getElementById('scramble-submit')
+      },
+      sentenceGame: {
+        container: document.getElementById('sentence-builder-game'),
+        instruction: document.getElementById('sentence-instruction'),
+        target: document.getElementById('sentence-target'),
+        words: document.getElementById('sentence-words'),
+        construction: document.getElementById('sentence-construction'),
+        check: document.getElementById('sentence-check')
+      },
+      picsGame: {
+        container: document.getElementById('pics-word-game'),
+        pics: document.getElementById('pics-container'),
+        options: document.getElementById('word-options')
+      },
+      feedback: {
+        modal: document.querySelector('.feedback-modal'),
+        icon: document.querySelector('.feedback-icon'),
+        message: document.querySelector('.feedback-message'),
+        tipText: document.getElementById('cultural-tip-text'),
+        nextBtn: document.querySelector('.next-btn')
+      },
+      badges: {
+        container: document.getElementById('badges-container'),
+        button: document.getElementById('badges-button'),
+        popup: document.getElementById('badges-popup')
+      },
+      ceremony: {
+        container: document.getElementById('ambassador-ceremony'),
+        character: document.getElementById('ceremony-character'),
+        title: document.getElementById('ceremony-title'),
+        message: document.getElementById('ceremony-message'),
+        certificate: document.getElementById('ceremony-certificate'),
+        name: document.getElementById('certificate-name'),
+        xp: document.getElementById('ceremony-xp'),
+        level: document.getElementById('ceremony-level'),
+        badges: document.getElementById('ceremony-badges'),
+        closeBtn: document.getElementById('ceremony-close')
+      }
+    };
+
+    // Initialize Stars Background
+    function initStars() {
+      const canvas = document.getElementById('stars');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const stars = [];
+      const starCount = 200;
+      
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          speed: Math.random() * 0.5
+        });
+      }
+      
+      function animateStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        
+        stars.forEach(star => {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          ctx.fill();
+          
+          star.y += star.speed;
+          
+          if (star.y > canvas.height) {
+            star.y = 0;
+            star.x = Math.random() * canvas.width;
+          }
+        });
+        
+        requestAnimationFrame(animateStars);
+      }
+      
+      animateStars();
+    }
+
+    // Initialize Lobby
+    function initLobby() {
+      // Set up event listeners
+      elements.lobby.nameInput.addEventListener('input', checkLobbyInputs);
+      
+      elements.lobby.genderBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          elements.lobby.genderBtns.forEach(b => b.classList.remove('selecionado'));
+          this.classList.add('selecionado');
+          checkLobbyInputs();
+        });
+      });
+      
+      elements.lobby.nextBtn.addEventListener('click', proceedToCharacterSelection);
+      
+      // Check inputs initially
+      checkLobbyInputs();
+      
+      // Initialize stars background
+      initStars();
+    }
+
+    function checkLobbyInputs() {
+      const name = elements.lobby.nameInput.value.trim();
+      const genderSelected = document.querySelector('.gender-btn.selecionado') !== null;
+      
+      elements.lobby.nextBtn.disabled = !(name && genderSelected);
+    }
+
+    function proceedToCharacterSelection() {
+      // Save player profile
+      gameData.playerProfile = {
+        name: elements.lobby.nameInput.value.trim(),
+        gender: document.querySelector('.gender-btn.selecionado').dataset.gender,
+        orientation: elements.lobby.orientationInput.value.trim() || 'Not specified'
+      };
+      
+      // Animate lobby exit
+      elements.lobby.panel.classList.add('fade-out');
+      
+      // Show character selection after animation
+      setTimeout(() => {
+        elements.lobby.container.style.display = 'none';
+        initCharacterSelection();
+      }, 700);
+    }
+
+    // Character Selection
+    function initCharacterSelection() {
+      elements.characterSelection.container.classList.add('active');
+      
+      // Render character grid
+      renderCharacterGrid();
+      
+      // Set up select button
+      elements.characterSelection.selectBtn.addEventListener('click', selectCharacter);
+    }
+
+    function renderCharacterGrid() {
+      elements.characterSelection.grid.innerHTML = '';
+      
+      gameData.characters.forEach(character => {
+        const card = document.createElement('div');
+        card.className = 'character-card';
+        
+        // Highlight characters that match player's gender
+        if (gameData.playerProfile.gender === character.gender.toLowerCase()) {
+          card.classList.add('highlighted');
+        }
+        
+        card.innerHTML = `
+          <img src="${character.image}" alt="${character.name}">
+          <div class="char-name">${character.name}</div>
+        `;
+        
+        card.addEventListener('click', () => previewCharacter(character));
+        elements.characterSelection.grid.appendChild(card);
+      });
+    }
+
+    function previewCharacter(character) {
+      gameData.playerProfile.character = character.id;
+      
+      // Update preview
+      elements.characterSelection.portrait.innerHTML = `<img src="${character.image}" alt="${character.name}">`;
+      elements.characterSelection.name.textContent = character.name;
+      elements.characterSelection.gender.textContent = `Gender: ${character.gender}`;
+      elements.characterSelection.orientation.textContent = `Orientation: ${character.orientation}`;
+      elements.characterSelection.bio.textContent = character.bio;
+      
+      // Enable select button
+      elements.characterSelection.selectBtn.disabled = false;
+    }
+
+    function selectCharacter() {
+      // Hide character selection
+      elements.characterSelection.container.classList.remove('active');
+      
+      // Initialize game
+      initGame();
+    }
+
+    // Main Game
+    function initGame() {
+      // Show game container
+      elements.game.container.classList.add('active');
+      
+      // Set player info
+      const character = gameData.characters.find(c => c.id === gameData.playerProfile.character);
+      elements.game.playerAvatar.innerHTML = `<img src="${character.image}" alt="${gameData.playerProfile.name}">`;
+      elements.game.playerName.textContent = gameData.playerProfile.name;
+      
+      // Set up knowledge check
+      elements.knowledgeCheck.knowEnglishBtn.addEventListener('click', () => startEnglishTest());
+      elements.knowledgeCheck.noEnglishBtn.addEventListener('click', () => startBeginnerMode());
+      
+      // Show knowledge check
+      elements.knowledgeCheck.section.style.display = 'block';
+    }
+
+    function startEnglishTest() {
+      // Hide knowledge check
+      elements.knowledgeCheck.section.style.display = 'none';
+      
+      // Show level test
+      elements.levelTest.section.classList.add('active');
+      
+      // Render test questions
+      renderTestQuestions();
+    }
+
+    function renderTestQuestions() {
+      elements.levelTest.questions.innerHTML = '';
+      
+      // Select 10 random questions (in a real app, you might want a more sophisticated selection)
+      const selectedQuestions = [...gameData.testQuestions].sort(() => 0.5 - Math.random()).slice(0, 10);
+      
+      selectedQuestions.forEach((question, index) => {
+        const questionEl = document.createElement('div');
+        questionEl.className = 'test-question';
+        questionEl.innerHTML = `
+          <h3>${index + 1}. ${question.question}</h3>
+          <div class="test-options"></div>
+        `;
+        
+        const optionsEl = questionEl.querySelector('.test-options');
+        
+        question.options.forEach((option, optIndex) => {
+          const optionEl = document.createElement('div');
+          optionEl.className = 'test-option';
+          optionEl.textContent = option;
+          optionEl.dataset.index = optIndex;
+          optionEl.addEventListener('click', selectTestAnswer);
+          optionsEl.appendChild(optionEl);
+        });
+        
+        elements.levelTest.questions.appendChild(questionEl);
+      });
+      
+      // Set up submit button
+      elements.levelTest.submitBtn.addEventListener('click', submitTest);
+    }
+
+    function selectTestAnswer(e) {
+      const option = e.target;
+      const questionEl = option.closest('.test-question');
+      
+      // Remove selected class from all options in this question
+      questionEl.querySelectorAll('.test-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked option
+      option.classList.add('selected');
+    }
+
+    function submitTest() {
+      // Collect answers
+      const questionEls = elements.levelTest.questions.querySelectorAll('.test-question');
+      let correctAnswers = 0;
+      
+      questionEls.forEach((questionEl, index) => {
+        const selectedOption = questionEl.querySelector('.test-option.selected');
+        
+        if (selectedOption) {
+          const selectedIndex = parseInt(selectedOption.dataset.index);
+          const question = gameData.testQuestions[index];
+          
+          if (selectedIndex === question.answer) {
+            correctAnswers++;
+          }
+        }
+      });
+      
+      // Determine level based on score
+      let level;
+      if (correctAnswers <= 2) {
+        level = "A1";
+      } else if (correctAnswers <= 4) {
+        level = "A2";
+      } else if (correctAnswers <= 6) {
+        level = "B1";
+      } else if (correctAnswers <= 8) {
+        level = "B2";
+      } else {
+        level = "C1";
+      }
+      
+      gameData.englishLevel = level;
+      
+      // Show results
+      showTestResults(level);
+    }
+
+    function showTestResults(level) {
+      elements.levelTest.section.classList.remove('active');
+      
+      // Set results content
+      elements.testResults.level.textContent = `${level} (${getLevelName(level)})`;
+      elements.testResults.description.textContent = gameData.levelDescriptions[level];
+      
+      // Set improvement areas
+      elements.testResults.areas.innerHTML = `
+        <ul>
+          ${gameData.improvementAreas[level].map(area => `<li>${area}</li>`).join('')}
+        </ul>
+      `;
+      
+      // Set up start button
+      elements.testResults.startBtn.addEventListener('click', showGameModes);
+      
+      // Show results
+      elements.testResults.section.classList.add('active');
+    }
+
+    function getLevelName(level) {
+      const levels = {
+        "A1": "Beginner",
+        "A2": "Elementary",
+        "B1": "Intermediate",
+        "B2": "Upper Intermediate",
+        "C1": "Advanced"
+      };
+      
+      return levels[level] || "";
+    }
+
+    function startBeginnerMode() {
+      // Hide knowledge check
+      elements.knowledgeCheck.section.style.display = 'none';
+      
+      // Set beginner level
+      gameData.englishLevel = "A1";
+      
+      // Show game modes
+      showGameModes();
+    }
+
+    function showGameModes() {
+      // Hide previous sections
+      elements.testResults.section.classList.remove('active');
+      
+      // Show game modes
+      elements.gameModes.section.classList.add('active');
+      
+      // Set up mode cards
+      elements.gameModes.cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const mode = card.dataset.mode;
+          startGameMode(mode);
+        });
+      });
+    }
+
+    function startGameMode(mode) {
+      // Hide game modes
+      elements.gameModes.section.classList.remove('active');
+      
+      // Show minigame container
+      elements.minigame.container.classList.add('active');
+      
+      // Set current game
+      gameData.currentGame = mode;
+      gameData.currentGameIndex = 0;
+      
+      // Update progress circles
+      updateProgressCircles();
+      
+      // Start the specific game
+      switch (mode) {
+        case 'dialogue':
+          startDialogueGame();
+          break;
+        case 'scramble':
+          startScrambleGame();
+          break;
+        case 'sentence':
+          startSentenceGame();
+          break;
+        case 'pics':
+          startPicsGame();
+          break;
+        case 'multiplayer':
+          startMultiplayer();
+          break;
+      }
+    }
+
+    function updateProgressCircles() {
+      const circles = elements.minigame.progress.querySelectorAll('.progress-circle');
+      
+      circles.forEach((circle, index) => {
+        circle.classList.remove('active', 'completed');
+        
+        if (index < gameData.currentGameIndex) {
+          circle.classList.add('completed');
+        } else if (index === gameData.currentGameIndex) {
+          circle.classList.add('active');
+        }
+      });
+    }
+
+    // Dialogue Game
+    function startDialogueGame() {
+      // Hide other games
+      elements.scrambleGame.container.style.display = 'none';
+      elements.sentenceGame.container.style.display = 'none';
+      elements.picsGame.container.style.display = 'none';
+      
+      // Show dialogue game
+      elements.dialogueGame.container.style.display = 'block';
+      
+      // Set title
+      elements.minigame.title.textContent = "Cultural Dialogue";
+      
+      // Set character avatar
+      const character = gameData.characters.find(c => c.id === gameData.playerProfile.character);
+      elements.dialogueGame.avatar.innerHTML = `<img src="${character.image}" alt="${character.name}">`;
+      
+      // Load current dialogue
+      loadDialogue();
+    }
+
+    function loadDialogue() {
+      const dialogue = gameData.dialogueScenes[gameData.currentGameIndex];
+      
+      // Replace [name] with player's name
+      let dialogueText = dialogue.text.replace('[name]', gameData.playerProfile.name);
+      
+      // Set dialogue text
+      elements.dialogueGame.text.textContent = dialogueText;
+      
+      // Clear options
+      elements.dialogueGame.options.innerHTML = '';
+      
+      // Add options
+      dialogue.options.forEach((option, index) => {
+        const optionEl = document.createElement('div');
+        optionEl.className = 'dialogue-option';
+        optionEl.textContent = option;
+        optionEl.dataset.index = index;
+        optionEl.addEventListener('click', selectDialogueOption);
+        elements.dialogueGame.options.appendChild(optionEl);
+      });
+    }
+
+    function selectDialogueOption(e) {
+      const optionIndex = parseInt(e.target.dataset.index);
+      const dialogue = gameData.dialogueScenes[gameData.currentGameIndex];
+      
+      // Check if correct
+      const isCorrect = optionIndex === dialogue.correct;
+      
+      // Show feedback
+      showFeedback(isCorrect, dialogue.culturalTip);
+    }
+
+    // Word Scramble Game
+    function startScrambleGame() {
+      // Hide other games
+      elements.dialogueGame.container.style.display = 'none';
+      elements.sentenceGame.container.style.display = 'none';
+      elements.picsGame.container.style.display = 'none';
+      
+      // Show scramble game
+      elements.scrambleGame.container.style.display = 'block';
+      
+      // Set title
+      elements.minigame.title.textContent = "Word Scramble";
+      
+      // Load current scramble
+      loadScramble();
+    }
+
+    function loadScramble() {
+      const scramble = gameData.wordScrambleGames[gameData.currentGameIndex];
+      
+      // Set word and hint
+      elements.scrambleGame.word.textContent = scramble.scrambled.split('').join(' ');
+      elements.scrambleGame.hint.textContent = `Hint: ${scramble.hint}`;
+      
+      // Clear letters
+      elements.scrambleGame.letters.innerHTML = '';
+      
+      // Add letters
+      scramble.scrambled.split('').forEach((letter, index) => {
+        const letterEl = document.createElement('div');
+        letterEl.className = 'scramble-letter';
+        letterEl.textContent = letter;
+        letterEl.dataset.index = index;
+        elements.scrambleGame.letters.appendChild(letterEl);
+      });
+      
+      // Set up submit button
+      elements.scrambleGame.submit.addEventListener('click', checkScramble);
+    }
+
+    function checkScramble() {
+      const scramble = gameData.wordScrambleGames[gameData.currentGameIndex];
+      const letters = elements.scrambleGame.letters.querySelectorAll('.scramble-letter');
+      let userWord = '';
+      
+      letters.forEach(letter => {
+        userWord += letter.textContent;
+      });
+      
+      // Check if correct
+      const isCorrect = userWord === scramble.word;
+      
+      // Show feedback
+      showFeedback(isCorrect, `In British English, this word means: ${scramble.hint}`);
+    }
+
+    // Sentence Builder Game
+    function startSentenceGame() {
+      // Hide other games
+      elements.dialogueGame.container.style.display = 'none';
+      elements.scrambleGame.container.style.display = 'none';
+      elements.picsGame.container.style.display = 'none';
+      
+      // Show sentence game
+      elements.sentenceGame.container.style.display = 'block';
+      
+      // Set title
+      elements.minigame.title.textContent = "Sentence Builder";
+      
+      // Load current sentence
+      loadSentence();
+    }
+
+    function loadSentence() {
+      const sentence = gameData.sentenceBuilderGames[gameData.currentGameIndex];
+      
+      // Set target sentence
+      elements.sentenceGame.target.textContent = `"${sentence.sentence}"`;
+      
+      // Clear words
+      elements.sentenceGame.words.innerHTML = '';
+      elements.sentenceGame.construction.innerHTML = '';
+      
+      // Shuffle words
+      const shuffledWords = [...sentence.words].sort(() => 0.5 - Math.random());
+      
+      // Add words
+      shuffledWords.forEach((word, index) => {
+        const wordEl = document.createElement('div');
+        wordEl.className = 'sentence-word';
+        wordEl.textContent = word;
+        wordEl.dataset.word = word;
+        wordEl.addEventListener('click', selectWord);
+        elements.sentenceGame.words.appendChild(wordEl);
+      });
+      
+      // Set up check button
+      elements.sentenceGame.check.addEventListener('click', checkSentence);
+    }
+
+    function selectWord(e) {
+      const word = e.target.dataset.word;
+      
+      // Remove from words
+      e.target.remove();
+      
+      // Add to construction
+      const wordEl = document.createElement('div');
+      wordEl.className = 'sentence-word';
+      wordEl.textContent = word;
+      wordEl.dataset.word = word;
+      wordEl.addEventListener('click', returnWord);
+      elements.sentenceGame.construction.appendChild(wordEl);
+    }
+
+    function returnWord(e) {
+      const word = e.target.dataset.word;
+      
+      // Remove from construction
+      e.target.remove();
+      
+      // Add back to words
+      const wordEl = document.createElement('div');
+      wordEl.className = 'sentence-word';
+      wordEl.textContent = word;
+      wordEl.dataset.word = word;
+      wordEl.addEventListener('click', selectWord);
+      elements.sentenceGame.words.appendChild(wordEl);
+    }
+
+    function checkSentence() {
+      const sentence = gameData.sentenceBuilderGames[gameData.currentGameIndex];
+      const words = elements.sentenceGame.construction.querySelectorAll('.sentence-word');
+      let userSentence = '';
+      
+      words.forEach(word => {
+        userSentence += word.textContent + ' ';
+      });
+      
+      userSentence = userSentence.trim();
+      
+      // Check if correct (remove extra spaces and compare)
+      const isCorrect = userSentence.replace(/\s+/g, ' ') === sentence.sentence.replace(/\s+/g, ' ');
+      
+      // Show feedback
+      showFeedback(isCorrect, `Grammar Tip: ${sentence.grammarTip}`);
+    }
+
+    // 4 Pics 1 Word Game
+    function startPicsGame() {
+      // Hide other games
+      elements.dialogueGame.container.style.display = 'none';
+      elements.scrambleGame.container.style.display = 'none';
+      elements.sentenceGame.container.style.display = 'none';
+      
+      // Show pics game
+      elements.picsGame.container.style.display = 'block';
+      
+      // Set title
+      elements.minigame.title.textContent = "4 Pics 1 Word";
+      
+      // Load current pics game
+      loadPicsGame();
+    }
+
+    function loadPicsGame() {
+      const game = gameData.picsWordGames[gameData.currentGameIndex];
+      
+      // Clear pics and options
+      elements.picsGame.pics.innerHTML = '';
+      elements.picsGame.options.innerHTML = '';
+      
+      // Add pics (in a real game, you would use actual images)
+      for (let i = 0; i < 4; i++) {
+        const picEl = document.createElement('div');
+        picEl.className = 'pic-item';
+        picEl.innerHTML = `<div style="width:100%;height:100%;background:#${Math.floor(Math.random()*16777215).toString(16)};"></div>`;
+        elements.picsGame.pics.appendChild(picEl);
+      }
+      
+      // Add options
+      game.options.forEach(option => {
+        const optionEl = document.createElement('div');
+        optionEl.className = 'word-option';
+        optionEl.textContent = option;
+        optionEl.addEventListener('click', () => selectPicOption(option, game.word));
+        elements.picsGame.options.appendChild(optionEl);
+      });
+    }
+
+    function selectPicOption(selected, correct) {
+      // Check if correct
+      const isCorrect = selected === correct;
+      
+      // Show feedback
+      showFeedback(isCorrect, `Cultural Note: ${gameData.picsWordGames[gameData.currentGameIndex].hint}`);
+    }
+
+    // Multiplayer Game
+    function startMultiplayer() {
+      // Hide game modes
+      elements.gameModes.section.classList.remove('active');
+      
+      // Show multiplayer screen
+      elements.multiplayer.section.classList.add('active');
+      
+      // Set up buttons
+      elements.multiplayer.createRoom.addEventListener('click', createRoom);
+      elements.multiplayer.joinRoom.addEventListener('click', joinRoom);
+      elements.multiplayer.joinBtn.addEventListener('click', joinRoomWithCode);
+    }
+
+    function createRoom() {
+      // Generate random room code
+      const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+      
+      // Show code
+      elements.multiplayer.roomCode.textContent = code;
+      elements.multiplayer.roomCodeDisplay.style.display = 'block';
+      
+      // Hide options
+      elements.multiplayer.createRoom.style.display = 'none';
+      elements.multiplayer.joinRoom.style.display = 'none';
+      
+      // In a real app, you would connect to a server here
+      // For this demo, we'll just simulate after 3 seconds
+      setTimeout(() => {
+        // Hide multiplayer screen
+        elements.multiplayer.section.classList.remove('active');
+        
+        // Start a random game mode
+        const modes = ['dialogue', 'scramble', 'sentence', 'pics'];
+        const randomMode = modes[Math.floor(Math.random() * modes.length)];
+        startGameMode(randomMode);
+      }, 3000);
+    }
+
+    function joinRoom() {
+      // Show join form
+      elements.multiplayer.joinForm.style.display = 'block';
+      
+      // Hide options
+      elements.multiplayer.createRoom.style.display = 'none';
+      elements.multiplayer.joinRoom.style.display = 'none';
+    }
+
+    function joinRoomWithCode() {
+      const code = elements.multiplayer.roomCodeInput.value.trim().toUpperCase();
+      
+      if (code.length === 6) {
+        // In a real app, you would validate the code with a server
+        // For this demo, we'll just simulate after 1 second
+        setTimeout(() => {
+          // Hide multiplayer screen
+          elements.multiplayer.section.classList.remove('active');
+          
+          // Start a random game mode
+          const modes = ['dialogue', 'scramble', 'sentence', 'pics'];
+          const randomMode = modes[Math.floor(Math.random() * modes.length)];
+          startGameMode(randomMode);
+        }, 1000);
+      } else {
+        alert('Please enter a valid 6-character room code');
+      }
+    }
+
+    // Feedback System
+    function showFeedback(isCorrect, culturalTip) {
+      // Set feedback content
+      if (isCorrect) {
+        elements.feedback.icon.textContent = '✓';
+        elements.feedback.icon.style.color = 'var(--success-color)';
+        elements.feedback.message.textContent = 'Correct!';
+        elements.feedback.message.className = 'feedback-message feedback-correct';
+        
+        // Increase score
+        gameData.score++;
+        gameData.xp += 10;
+        
+        // Check level up
+        checkLevelUp();
+      } else {
+        elements.feedback.icon.textContent = '✗';
+        elements.feedback.icon.style.color = 'var(--error-color)';
+        elements.feedback.message.textContent = 'Incorrect!';
+        elements.feedback.message.className = 'feedback-message feedback-incorrect';
+      }
+      
+      // Set cultural tip
+      elements.feedback.tipText.textContent = culturalTip;
+      
+      // Show modal
+      elements.feedback.modal.classList.add('active');
+      
+      // Set up next button
+      elements.feedback.nextBtn.onclick = proceedAfterFeedback;
+    }
+
+    function proceedAfterFeedback() {
+      // Hide feedback
+      elements.feedback.modal.classList.remove('active');
+      
+      // Move to next game or finish
+      gameData.currentGameIndex++;
+      
+      if (gameData.currentGameIndex < 5) {
+        // Update progress
+        updateProgressCircles();
+        
+        // Load next game
+        switch (gameData.currentGame) {
+          case 'dialogue':
+            loadDialogue();
+            break;
+          case 'scramble':
+            loadScramble();
+            break;
+          case 'sentence':
+            loadSentence();
+            break;
+          case 'pics':
+            loadPicsGame();
+            break;
+        }
+      } else {
+        // Game completed
+        completeGameMode();
+      }
+    }
+
+    function checkLevelUp() {
+      const xpNeeded = gameData.level * 100;
+      
+      if (gameData.xp >= xpNeeded) {
+        gameData.level++;
+        gameData.xp = 0;
+        
+        // Update stats
+        updateGameStats();
+        
+        // Show level up message
+        alert(`Level Up! You are now level ${gameData.level}`);
+      }
+    }
+
+    function updateGameStats() {
+      elements.game.xpStat.textContent = gameData.xp;
+      elements.game.levelStat.textContent = gameData.level;
+      elements.game.streakStat.textContent = gameData.streak;
+    }
+
+    function completeGameMode() {
+      // Hide minigame container
+      elements.minigame.container.classList.remove('active');
+      
+      // Check if all badges are unlocked
+      checkBadges();
+      
+      // Show game modes again
+      elements.gameModes.section.classList.add('active');
+      
+      // Check if all game modes are completed
+      if (gameData.score >= 20) {
+        showAmbassadorCeremony();
+      }
+    }
+
+    // Badges System
+    function initBadges() {
+      elements.badges.button.addEventListener('click', toggleBadgesPopup);
+    }
+
+    function toggleBadgesPopup() {
+      elements.badges.popup.classList.toggle('active');
+    }
+
+    function checkBadges() {
+      // Unlock badges based on progress
+      if (gameData.score >= 10 && !gameData.badges[1].unlocked) {
+        gameData.badges[1].unlocked = true;
+        showBadgeUnlocked(1);
+      }
+      
+      if (gameData.score >= 15 && !gameData.badges[2].unlocked) {
+        gameData.badges[2].unlocked = true;
+        showBadgeUnlocked(2);
+      }
+      
+      // Update badges display
+      updateBadgesDisplay();
+    }
+
+    function showBadgeUnlocked(badgeIndex) {
+      const badge = gameData.badges[badgeIndex];
+      alert(`Badge Unlocked: ${badge.name}\n${badge.description}`);
+    }
+
+    function updateBadgesDisplay() {
+      elements.badges.popup.innerHTML = `
+        <h3>Your Achievements</h3>
+        ${gameData.badges.map(badge => `
+          <div class="badge-item ${badge.unlocked ? 'unlocked' : ''}">
+            <div class="badge-icon ${badge.unlocked ? '' : 'locked'}">${badge.unlocked ? badge.icon : '🔒'}</div>
+            <div class="badge-info">
+              <h4>${badge.name}</h4>
+              <p>${badge.description}</p>
+            </div>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    // Ambassador Ceremony
+    function showAmbassadorCeremony() {
+      const character = gameData.characters.find(c => c.id === gameData.playerProfile.character);
+      
+      // Set ceremony content
+      elements.ceremony.character.innerHTML = `<img src="${character.image}" alt="${character.name}">`;
+      elements.ceremony.name.textContent = gameData.playerProfile.name;
+      elements.ceremony.xp.textContent = gameData.xp + (gameData.level * 100);
+      elements.ceremony.level.textContent = gameData.level;
+      elements.ceremony.badges.textContent = gameData.badges.filter(b => b.unlocked).length;
+      
+      // Set up close button
+      elements.ceremony.closeBtn.addEventListener('click', () => {
+        elements.ceremony.container.classList.remove('active');
+      });
+      
+      // Show ceremony
+      elements.ceremony.container.classList.add('active');
+    }
+
+    // Initialize the game when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      initLobby();
+      initBadges();
+    });
+  </script>
+</body>
+</html>
