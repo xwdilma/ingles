@@ -1,0 +1,116 @@
+  <div id="transition-screen">
+    <div id="transition-message"></div>
+  </div>
+
+  <!-- Tela de Carregamento Super Premium -->
+  <div id="premium-loading">
+    <div id="pl-background"></div>
+    
+    <div id="pl-content">
+      <div id="pl-animation-container">
+        <div id="pl-spinner"></div>
+        <div id="pl-particles"></div>
+      </div>
+      
+      <div id="pl-text-container">
+        <h2 id="pl-title">Embarking on Cultural Journey</h2>
+        <div id="pl-tip"></div>
+        
+        <div id="pl-progress-container">
+          <div id="pl-progress-bar"></div>
+          <div id="pl-progress-text">0%</div>
+        </div>
+        
+        <div id="pl-character-preview">
+          <img id="pl-character-image" src="" alt="Selected character">
+          <div id="pl-character-info">
+            <h3 id="pl-character-name"></h3>
+            <p id="pl-character-bio"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="musicManager.js"></script>
+  <script src="choose-character.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Character</title>
+  <link rel="stylesheet" href="choose-character.css">
+</head>
+<body>
+  <audio id="characterMusic" src="assets/lobby/sons/character-select.mp3" loop></audio>
+  <audio id="characterClick" src="assets/lobby/sons/click.wav"></audio>
+  <audio id="characterSelect" src="assets/lobby/sons/select.wav"></audio>
+  <audio id="loadingMusic" src="assets/lobby/sons/loading.mp3" loop></audio>
+
+  <div id="character-bg">
+    <canvas id="particles"></canvas>
+    <img src="assets/lobby/imagens/decoracoes/grama.png" class="decor" id="grass">
+  </div>
+
+  <main class="choose-main">
+    <header class="choose-header">
+      <button id="back-button" class="nav-button" title="Back">
+        <img src="assets/lobby/imagens/icons/back.png" alt="Back">
+      </button>
+      <h1>Choose Your Character</h1>
+    </header>
+
+    <section class="choose-carousel">
+      <button id="carousel-left" class="carousel-arrow">&#8592;</button>
+      <div id="carousel-track" class="carousel-track"></div>
+      <button id="carousel-right" class="carousel-arrow">&#8594;</button>
+    </section>
+
+    <section class="choose-details">
+      <div class="choose-portrait" id="character-portrait"></div>
+      <div class="choose-info">
+        <h2 id="char-name"></h2>
+        <div id="char-gender"></div>
+        <div id="char-orientation"></div>
+        <div id="char-bio"></div>
+        <div id="compatibility-reason"></div>
+      </div>
+    </section>
+
+    <section class="choose-actions">
+      <button id="random-character" class="action-btn">
+        <img src="assets/lobby/imagens/icons/random.png" alt="Random">
+        Random
+      </button>
+      <button id="select-character" class="action-btn" disabled>
+        <img src="assets/lobby/imagens/icons/select.png" alt="Select">
+        Select
+      </button>
+    </section>
+  </main>
+
+  <!-- Modern Loading Screen -->
+  <div id="modern-loading" class="modern-loading">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <div class="loading-bar-container">
+        <div class="loading-bar" id="loading-bar"></div>
+      </div>
+      <div class="loading-character-preview">
+        <img id="loading-character-img" src="" alt="Character Preview">
+        <div>
+          <h3 id="loading-character-name"></h3>
+          <p id="loading-character-bio"></p>
+        </div>
+      </div>
+      <div class="loading-tip" id="loading-tip"></div>
+    </div>
+  </div>
+
+  <script src="choose-character.js"></script>
+</body>
+</html>

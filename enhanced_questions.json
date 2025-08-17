@@ -1,0 +1,224 @@
+{
+  "grammar_questions": [
+    {
+      "level": "A1",
+      "question": "What is the correct greeting?",
+      "options": ["Hello", "Hellos", "Helloing", "Helloed"],
+      "correct": 0,
+      "explanation": "'Hello' is the basic greeting in English."
+    },
+    {
+      "level": "A1",
+      "question": "Complete: I ___ from Brazil.",
+      "options": ["am", "is", "are", "be"],
+      "correct": 0,
+      "explanation": "Use 'am' with 'I' in the present simple."
+    },
+    {
+      "level": "A1",
+      "question": "What is the plural of 'child'?",
+      "options": ["childs", "children", "childes", "childen"],
+      "correct": 1,
+      "explanation": "'Children' is the irregular plural of 'child'."
+    },
+    {
+      "level": "A2",
+      "question": "Which sentence is correct?",
+      "options": ["She go to school", "She goes to school", "She going to school", "She to go school"],
+      "correct": 1,
+      "explanation": "With 'she', we add -s to the verb in present simple."
+    },
+    {
+      "level": "A2",
+      "question": "What is the past tense of 'eat'?",
+      "options": ["eated", "ate", "eaten", "eating"],
+      "correct": 1,
+      "explanation": "'Ate' is the irregular past tense of 'eat'."
+    },
+    {
+      "level": "B1",
+      "question": "If I ___ you, I would take that job.",
+      "options": ["am", "was", "were", "would be"],
+      "correct": 2,
+      "explanation": "In hypothetical situations, we use 'were' for all subjects."
+    },
+    {
+      "level": "B1",
+      "question": "She ___ in London for five years.",
+      "options": ["lives", "has lived", "is living", "lived"],
+      "correct": 1,
+      "explanation": "Present perfect is used for actions that started in the past and continue to the present."
+    },
+    {
+      "level": "B2",
+      "question": "By next year, I ___ my degree.",
+      "options": ["will complete", "will have completed", "complete", "have completed"],
+      "correct": 1,
+      "explanation": "Future perfect is used for actions completed before a future time."
+    },
+    {
+      "level": "B2",
+      "question": "The report ___ by the team yesterday.",
+      "options": ["was written", "wrote", "has written", "had written"],
+      "correct": 0,
+      "explanation": "Passive voice is used when the focus is on the action, not who did it."
+    },
+    {
+      "level": "C1",
+      "question": "Not only ___ the presentation, but she also answered all questions.",
+      "options": ["did she give", "she gave", "gave she", "she did give"],
+      "correct": 0,
+      "explanation": "With 'not only' at the beginning, we use inverted word order."
+    },
+    {
+      "level": "C1",
+      "question": "Had I known about the meeting, I ___ attended.",
+      "options": ["would", "would have", "had", "will have"],
+      "correct": 1,
+      "explanation": "Third conditional is used for hypothetical past situations."
+    },
+    {
+      "level": "C2",
+      "question": "The committee insisted that the proposal ___ immediately.",
+      "options": ["is implemented", "be implemented", "was implemented", "implements"],
+      "correct": 1,
+      "explanation": "Subjunctive mood is used after verbs like 'insist', 'suggest', 'recommend'."
+    }
+  ],
+  "reading_comprehension": [
+    {
+      "level": "A2",
+      "passage": "Sarah is from Canada. She is 25 years old and works as a teacher. Every morning, she drinks coffee and reads the newspaper. On weekends, she likes to go hiking with her friends.",
+      "questions": [
+        {
+          "question": "Where is Sarah from?",
+          "options": ["USA", "Canada", "UK", "Australia"],
+          "correct": 1,
+          "explanation": "The text states 'Sarah is from Canada'."
+        },
+        {
+          "question": "What does Sarah do on weekends?",
+          "options": ["Reads books", "Goes hiking", "Watches TV", "Works"],
+          "correct": 1,
+          "explanation": "The text mentions 'On weekends, she likes to go hiking'."
+        }
+      ]
+    },
+    {
+      "level": "B1",
+      "passage": "British pubs are an important part of social life. Unlike American bars, pubs often serve food and are family-friendly. The tradition of 'pub quiz' nights is popular, where teams compete in trivia competitions. Many pubs have historical significance, some dating back hundreds of years.",
+      "questions": [
+        {
+          "question": "What makes British pubs different from American bars?",
+          "options": ["They are more expensive", "They serve food and are family-friendly", "They close earlier", "They don't serve alcohol"],
+          "correct": 1,
+          "explanation": "The text states pubs 'often serve food and are family-friendly'."
+        },
+        {
+          "question": "What is a 'pub quiz'?",
+          "options": ["A test about pubs", "A trivia competition", "A food menu", "A type of beer"],
+          "correct": 1,
+          "explanation": "The text describes pub quiz as 'where teams compete in trivia competitions'."
+        }
+      ]
+    },
+    {
+      "level": "C1",
+      "passage": "The concept of 'mateship' in Australian culture transcends mere friendship, embodying a complex social code of loyalty, equality, and mutual support. This cultural phenomenon, deeply rooted in the nation's colonial history, has evolved to represent egalitarian values that distinguish Australian society from its British origins. While superficially similar to American concepts of friendship, mateship carries unique cultural weight, particularly evident in workplace dynamics and social interactions.",
+      "questions": [
+        {
+          "question": "How does Australian 'mateship' differ from simple friendship?",
+          "options": ["It's more formal", "It includes loyalty and equality", "It's only for family", "It's temporary"],
+          "correct": 1,
+          "explanation": "The text describes mateship as 'embodying a complex social code of loyalty, equality, and mutual support'."
+        },
+        {
+          "question": "Where is the concept of mateship most evident?",
+          "options": ["Only in sports", "In workplace dynamics and social interactions", "In government policies", "In education"],
+          "correct": 1,
+          "explanation": "The text states it's 'particularly evident in workplace dynamics and social interactions'."
+        }
+      ]
+    }
+  ],
+  "cultural_context_questions": [
+    {
+      "country": "usa",
+      "level": "A2",
+      "scenario": "restaurant",
+      "question": "In an American restaurant, what is the typical tipping percentage?",
+      "options": ["5%", "10%", "15-20%", "No tip needed"],
+      "correct": 2,
+      "explanation": "In the US, tipping 15-20% is standard for restaurant service."
+    },
+    {
+      "country": "uk",
+      "level": "B1",
+      "scenario": "pub",
+      "question": "When ordering drinks at a British pub, you should:",
+      "options": ["Wait at your table", "Order at the bar", "Call the waiter", "Go to the kitchen"],
+      "correct": 1,
+      "explanation": "In British pubs, customers typically order and pay at the bar."
+    },
+    {
+      "country": "australia",
+      "level": "B2",
+      "scenario": "workplace",
+      "question": "In Australian workplace culture, addressing your boss by first name is:",
+      "options": ["Disrespectful", "Uncommon", "Normal and acceptable", "Only for close friends"],
+      "correct": 2,
+      "explanation": "Australian workplace culture is generally informal, and using first names is common."
+    },
+    {
+      "country": "canada",
+      "level": "A2",
+      "scenario": "greeting",
+      "question": "When meeting someone in Canada, a common greeting is:",
+      "options": ["How's it going?", "What's up, mate?", "Alright?", "How do you do?"],
+      "correct": 0,
+      "explanation": "'How's it going?' is a common, friendly greeting in Canada."
+    }
+  ],
+  "listening_scenarios": [
+    {
+      "country": "usa",
+      "level": "A2",
+      "scenario": "hotel_checkin",
+      "audio_description": "Hotel receptionist greeting and check-in process",
+      "questions": [
+        {
+          "question": "What is the guest's room number?",
+          "options": ["205", "305", "405", "505"],
+          "correct": 1,
+          "explanation": "The receptionist mentions room 305."
+        },
+        {
+          "question": "What time is breakfast served?",
+          "options": ["6-9 AM", "7-10 AM", "8-11 AM", "9-12 PM"],
+          "correct": 1,
+          "explanation": "Breakfast is served from 7 to 10 AM."
+        }
+      ]
+    },
+    {
+      "country": "uk",
+      "level": "B1",
+      "scenario": "train_station",
+      "audio_description": "Train announcement about delays and platform changes",
+      "questions": [
+        {
+          "question": "Which platform should passengers go to for the London train?",
+          "options": ["Platform 3", "Platform 5", "Platform 7", "Platform 9"],
+          "correct": 2,
+          "explanation": "The announcement directs passengers to Platform 7."
+        },
+        {
+          "question": "How long is the delay?",
+          "options": ["15 minutes", "30 minutes", "45 minutes", "1 hour"],
+          "correct": 1,
+          "explanation": "The train is delayed by 30 minutes."
+        }
+      ]
+    }
+  ]
+}

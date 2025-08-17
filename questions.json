@@ -1,0 +1,86 @@
+{
+  "grammar": [
+    {
+      "id": "g1",
+      "level": "A1",
+      "question": "Complete: I ___ from Brazil.",
+      "options": ["am", "is", "are", "be"],
+      "correct": 0,
+      "explanation": "'Am' is used with 'I' in present simple.",
+      "tags": ["present_simple", "verb_to_be"]
+    },
+    {
+      "id": "g2",
+      "level": "A1",
+      "question": "She ___ to school every day.",
+      "options": ["go", "goes", "going", "to go"],
+      "correct": 1,
+      "explanation": "With 'she', we need 'goes' in present simple.",
+      "tags": ["present_simple", "third_person"]
+    },
+    {
+      "id": "g3",
+      "level": "A2",
+      "question": "They ___ watching TV when I arrived.",
+      "options": ["was", "were", "are", "is"],
+      "correct": 1,
+      "explanation": "'Were' is used with 'they' in past continuous.",
+      "tags": ["past_continuous", "plural"]
+    },
+    {
+      "id": "g4",
+      "level": "B1",
+      "question": "By next year, I ___ English for five years.",
+      "options": ["will study", "will be studying", "will have studied", "study"],
+      "correct": 2,
+      "explanation": "Future perfect is used for actions completed before a future time.",
+      "tags": ["future_perfect", "tenses"]
+    },
+    {
+      "id": "g5",
+      "level": "C1",
+      "question": "___ had I arrived than the phone rang.",
+      "options": ["No sooner", "Hardly", "Scarcely", "Only"],
+      "correct": 0,
+      "explanation": "'No sooner...than' is a fixed construction for immediate sequence.",
+      "tags": ["inversion", "advanced_grammar"]
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "v1",
+      "level": "A1",
+      "question": "What is the opposite of 'happy'?",
+      "options": ["Sad", "Angry", "Excited", "Tired"],
+      "correct": 0,
+      "explanation": "The direct opposite of 'happy' is 'sad'.",
+      "tags": ["antonyms", "basic"]
+    },
+    {
+      "id": "v2",
+      "level": "B2",
+      "question": "What does 'baffled' mean?",
+      "options": ["Excited", "Confused", "Angry", "Happy"],
+      "correct": 1,
+      "explanation": "'Baffled' means completely confused or puzzled.",
+      "tags": ["synonyms", "intermediate"]
+    }
+  ],
+  "reading": [
+    {
+      "id": "r1",
+      "level": "B1",
+      "passage": "The quick brown fox jumps over the lazy dog. This sentence contains all the letters in the English alphabet.",
+      "question": "What is special about this sentence?",
+      "options": [
+        "It's very short",
+        "It contains every letter",
+        "It's hard to understand",
+        "It's about animals"
+      ],
+      "correct": 1,
+      "explanation": "This is a pangram - it contains all alphabet letters.",
+      "tags": ["comprehension", "intermediate"]
+    }
+  ]
+}

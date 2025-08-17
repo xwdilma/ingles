@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Lobby</title>
+  <link rel="stylesheet" href="lobby.css" />
+</head>
+<body>
+  <audio id="musicaLobby" src="assets/lobby/sons/lobby.mp3" autoplay loop></audio>
+  <audio id="clickSFX" src="assets/lobby/sons/click.wav"></audio>
+
+  <div id="fundo">
+    <canvas id="stars"></canvas>
+    <img src="assets/lobby/imagens/decoracoes/grama.png" class="decor" id="grama">
+  </div>
+
+  <div id="painel">
+    <h1>Create Your Character</h1>
+
+    <label class="label-small">Name:
+      <input type="text" id="nome" placeholder="Enter your name" />
+    </label>
+
+    <label class="label-small">Gender:</label>
+    <div class="botoes-opcao">
+      <button class="genero" data-valor="Male">♂ Male</button>
+      <button class="genero" data-valor="Female">♀ Female</button>
+      <button class="genero" data-valor="Other">⚧ Other</button>
+    </div>
+
+    <label class="label-small">Sexual Orientation (optional):
+      <input type="text" id="orientacao" placeholder="Type orientation" autocomplete="off"/>
+      <ul id="suggestions" class="suggestions"></ul>
+    </label>
+
+    <button id="proximo" disabled>Next</button>
+  </div>
+
+  <script src="musicManager.js"></script>
+  <script src="lobby.js"></script>
+</body>
+</html>

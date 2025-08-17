@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missing in Action</title>
+  <link rel="stylesheet" href="game.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Orientation Warning -->
+  <div id="orientation-warning">
+    <div class="orientation-content">
+      <img src="assets/icons/rotate.png" alt="Rotate Device">
+      <h2>Please rotate your device</h2>
+      <p>For the best experience, please play in landscape mode</p>
+    </div>
+  </div>
+  <!-- Game Container -->
+  <div id="game-container">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen active">
+      <div class="loader">
+        <div class="planet">
+          <div class="ring"></div>
+          <div class="cover-ring"></div>
+          <div class="spots">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <p>Loading Cultural Adventure...</p>
+      </div>
+    </div>
+
+    <!-- Initial Knowledge Check Screen -->
+    <div id="knowledge-check" class="screen">
+      <div class="background" style="background-image: url('assets/backgrounds/world-map.jpg')"></div>
+      <div class="screen-content animate__animated animate__fadeIn">
+        <div class="logo">
+          <img src="assets/logo.png" alt="Cultural English Adventure">
+        </div>
+        <div class="knowledge-check-box">
+          <h1>Welcome to Cultural English Adventure!</h1>
+          <p>Before we begin, let's check your current English knowledge</p>
+          <div class="knowledge-options">
+            <button id="know-nothing" class="btn-primary pulse">
+              <img src="assets/icons/beginner.png" alt="">
+              <span>I'm just starting</span>
+            </button>
+            <button id="know-something" class="btn-primary pulse">
+              <img src="assets/icons/intermediate.png" alt="">
+              <span>I know some English</span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- English Level Test Screen -->
+    <div id="level-test" class="screen">
+      <div class="background" style="background-image: url('assets/backgrounds/classroom.jpg')"></div>
+      <div class="screen-content animate__animated animate__fadeIn">
+        <div class="test-container">
+          <div id="test-progress">
+            <div class="progress-text">Question <span class="current">1</span>/<span class="total">10</span></div>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+          <div id="test-content">
+            <div class="test-question"></div>
+            <div class="test-options"></div>
+          </div>
+          <div class="test-feedback hidden">
+            <div class="feedback-icon"></div>
+            <div class="feedback-text"></div>
+          </div>
+          <button id="next-question" class="btn-primary hidden">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Level Result Screen -->
+    <div id="level-result" class="screen">
+      <div class="background" style="background-image: url('assets/backgrounds/result-bg.jpg')"></div>
+      <div class="screen-content animate__animated animate__fadeIn">
+        <div class="result-container enhanced-result premium-result">
+          <div class="result-anim-bg"></div>
+          <div class="result-content">
+            <div class="result-header">
+              <h1 class="result-title">Congratulations!</h1>
+              <div class="result-subtitle">You completed the English Level Test</div>
+            </div>
+            <div class="result-score-celebrate">
+              <div class="score-circle">
+                <span id="level-percentage" class="level-percentage emph">0%</span>
+              </div>
+              <div class="score-label">Correct Answers</div>
+            </div>
+            <div class="result-details">
+              <div id="level-title" class="level-title-premium"></div>
+              <div id="level-detailed-desc" class="level-detailed-desc-premium"></div>
+              <div id="level-description" class="level-description-premium"></div>
+              <div id="level-motivation" class="level-motivation-premium"></div>
+              <div class="result-celebrate-msg">🎉 You’re one step closer to fluency! 🎉</div>
+            </div>
+            <button id="continue-to-countries" class="btn-primary big-btn premium-btn pulse">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country Selection Screen -->
+    <div id="country-selection" class="screen">
+      <div class="background" style="background-image: url('assets/backgrounds/world-map-2.jpg')"></div>
+      <div class="screen-content animate__animated animate__fadeIn">
+        <h1>Choose Your Adventure</h1>
+        <p>Select an English-speaking country to explore</p>
+        <div class="country-map">
+          <div class="country-option" data-country="usa">
+            <div class="country-card">
+              <img src="assets/countries/usa.png" alt="USA">
+              <div class="country-info">
+                <h3>United States</h3>
+                <p>Learn American English and culture</p>
+              </div>
+            </div>
+          </div>
+          <div class="country-option" data-country="uk">
+            <div class="country-card">
+              <img src="assets/countries/uk.png" alt="UK">
+              <div class="country-info">
+                <h3>United Kingdom</h3>
+                <p>Discover British English and traditions</p>
+              </div>
+            </div>
+          </div>
+          <div class="country-option" data-country="australia">
+            <div class="country-card">
+              <img src="assets/countries/australia.png" alt="Australia">
+              <div class="country-info">
+                <h3>Australia</h3>
+                <p>Explore Aussie English and wildlife</p>
+              </div>
+            </div>
+          </div>
+          <div class="country-option" data-country="canada">
+            <div class="country-card">
+              <img src="assets/countries/canada.png" alt="Canada">
+              <div class="country-info">
+                <h3>Canada</h3>
+                <p>Experience Canadian English and nature</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Game Screen -->
+    <div id="game-screen" class="screen">
+      <div class="background" id="game-background"></div>
+      <div class="game-content">
+        <!-- Character Display -->
+        <div id="character-display">
+          <div id="npc-character" class="character">
+            <div class="character-portrait">
+              <img id="npc-avatar" src="" alt="NPC">
+              <div class="character-emotion"></div>
+            </div>
+            <div class="character-name" id="npc-name"></div>
+          </div>
+        </div>
+        
+        <!-- Dialogue Box -->
+        <div id="dialogue-box">
+          <div class="dialogue-content" id="dialogue-content"></div>
+          <div class="dialogue-options" id="dialogue-options"></div>
+        </div>
+        
+        <!-- Player Info -->
+        <div class="player-info">
+          <div class="player-avatar">
+            <img id="player-avatar" src="" alt="Player">
+          </div>
+          <div class="player-details">
+            <div class="player-name" id="player-name"></div>
+            <div class="player-level">
+              <span>Level:</span>
+              <span id="player-level"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini-game Screen -->
+    <div id="mini-game-screen" class="screen">
+      <div class="background" id="mini-game-background"></div>
+      <div class="screen-content">
+        <div class="mini-game-container">
+          <h1 id="mini-game-title"></h1>
+          <p id="mini-game-instructions"></p>
+          <div id="mini-game-content"></div>
+          <div class="mini-game-feedback hidden">
+            <div class="feedback-icon"></div>
+            <div class="feedback-text"></div>
+          </div>
+          <button id="submit-answer" class="btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+
+<!-- game.html - Nova tela -->
+<div id="transition-screen" class="screen">
+  <div class="plane-animation">
+    <img src="assets/plane.png" class="flying-plane">
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <p class="destination-text">Flying to <span id="destination-country"></span>...</p>
+    </div>
+  </div>
+</div>
+
+    <!-- Certificate Screen -->
+    <div id="certificate-screen" class="screen">
+      <div class="background" style="background-image: url('assets/backgrounds/certificate-bg.jpg')"></div>
+      <div class="screen-content animate__animated animate__fadeIn">
+        <div class="certificate-container">
+          <div class="certificate">
+            <div class="certificate-header">
+              <img src="assets/logo.png" alt="Cultural English Adventure">
+              <h1>Certificate of Cultural Ambassador</h1>
+            </div>
+            <div class="certificate-body">
+              <p>This certifies that</p>
+              <h2 id="certificate-name"></h2>
+              <p>has successfully completed the Cultural English Adventure in</p>
+              <div class="certificate-country">
+                <img id="certificate-flag" src="" alt="Country Flag">
+                <h3 id="certificate-country"></h3>
+              </div>
+              <div class="certificate-details">
+                <div class="detail">
+                  <span>English Level Achieved:</span>
+                  <strong id="certificate-level"></strong>
+                </div>
+                <div class="detail">
+                  <span>Completion Date:</span>
+                  <strong id="certificate-date"></strong>
+                </div>
+                <div class="detail">
+                  <span>Cultural Knowledge:</span>
+                  <strong id="certificate-knowledge"></strong>
+                </div>
+              </div>
+            </div>
+            <div class="certificate-footer">
+              <div class="signature">
+                <img id="character-signature-img" src="" alt="Character Signature">
+                <p><span id="character-signature-name"></span></p>
+                <p>Your Cultural Guide</p>
+              </div>
+              <div class="signature">
+                <img src="assets/signatures/system-signature.png" alt="System Signature">
+                <p>Cultural English Adventure</p>
+                <p>Educational System</p>
+              </div>
+            </div>
+          </div>
+          <div class="certificate-actions">
+            <button id="restart-game" class="btn-primary">Start New Adventure</button>
+            <button id="share-certificate" class="btn-secondary">
+              <img src="assets/icons/share.png" alt="Share">
+              Share Certificate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Elements -->
+  <audio id="background-music" loop src="assets/audio/background.mp3"></audio>
+  <audio id="click-sound" src="assets/audio/click.wav"></audio>
+  <audio id="success-sound" src="assets/audio/success.wav"></audio>
+  <audio id="failure-sound" src="assets/audio/failure.wav"></audio>
+  <audio id="transition-sound" src="assets/audio/transition.wav"></audio>
+  <audio id="dialogue-sound" src="assets/audio/dialogue.wav"></audio>
+  <audio id="celebration-sound" src="assets/audio/celebration.mp3"></audio>
+
+  <script src="musicManager.js"></script>
+  <script src="enhanced_game.js"></script>
+</body>
+</html>

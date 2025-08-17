@@ -1,0 +1,426 @@
+{
+  "countries": {
+    "uk": {
+      "name": "United Kingdom",
+      "flag": "assets/countries/uk.png",
+      "background": "assets/backgrounds/uk.jpg",
+      "accent": "British English",
+      "currency": "GBP",
+      "capital": "London",
+      "population": "67 million",
+      "cultural_highlights": [
+        "Tea culture and pub traditions",
+        "Queuing etiquette",
+        "Indirect communication style",
+        "Historical landmarks"
+      ],
+      "daily_life": {
+        "days": [
+          {
+            "day": 1,
+            "title": "First Day in London",
+            "location": "Heathrow Airport",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "pub_conversation",
+                "background": "uk-pub-interior.jpg",
+                "characters": [
+                  { "id": "david", "name": "David", "avatar": "assets/characters/uk-david.png", "role": "Pub Owner", "bio": "A traditional pub owner who loves sharing British customs over a pint." },
+                  { "id": "emma", "name": "Emma", "avatar": "assets/characters/uk-emma.png", "role": "Hotel Receptionist", "bio": "The helpful hotel receptionist who knows all the best places in town." }
+                ],
+                "dialogues": [
+                  { "speaker": "david", "text": "Welcome to the Crown & Anchor! First time in London?", "translation": "Bem-vindo ao Crown & Anchor! Primeira vez em Londres?", "options": [
+                    { "text": "Yes, first time. What's the best way to order a drink?", "translation": "Sim, primeira vez. Qual a melhor forma de pedir uma bebida?", "points": 10, "cultural_note": "Asking for advice shows respect and interest in local customs." },
+                    { "text": "No, I've been here before.", "translation": "Não, já estive aqui antes.", "cultural_note": "Being honest about experience is appreciated." }
+                  ]},
+                  { "speaker": "emma", "text": "Do you need help finding your hotel?", "translation": "Você precisa de ajuda para encontrar seu hotel?", "options": [
+                    { "text": "Yes, please!", "translation": "Sim, por favor!", "points": 5, "cultural_note": "Locals are often happy to help with directions." },
+                    { "text": "No, I have a map.", "translation": "Não, eu tenho um mapa.", "cultural_note": "Being prepared is valued in British culture." }
+                  ]},
+                  { "speaker": "david", "text": "Would you like to try a traditional British snack?", "translation": "Você gostaria de experimentar um lanche britânico tradicional?", "options": [
+                    { "text": "Sure! What do you recommend?", "translation": "Claro! O que você recomenda?", "points": 5, "cultural_note": "Trying local food is a great way to experience culture." },
+                    { "text": "Maybe later.", "translation": "Talvez mais tarde.", "cultural_note": "Polite refusal is common in the UK." }
+                  ]}
+                ]
+              },
+              {
+                "type": "minigame",
+                "game": "order_food",
+                "background": "uk-pub-interior.jpg",
+                "instructions": "Order a traditional British meal within your budget",
+                "items": [
+                  { "name": "Fish and Chips", "price": 12.99 },
+                  { "name": "Shepherd's Pie", "price": 10.99 },
+                  { "name": "Bangers and Mash", "price": 9.99 },
+                  { "name": "Sunday Roast", "price": 14.99 }
+                ],
+                "budget": 15.00
+              },
+              {
+                "type": "dialogue",
+                "scenario": "taxi_ride",
+                "background": "uk-taxi.jpg",
+                "characters": [
+                  { "id": "john", "name": "John", "avatar": "assets/characters/uk-john.png", "role": "Taxi Driver", "bio": "A friendly London cabbie who loves to chat about football." }
+                ],
+                "dialogues": [
+                  { "speaker": "john", "text": "Where to, mate?", "options": [
+                    { "text": "To Buckingham Palace, please!", "points": 5, "cultural_note": "Tourists often visit royal landmarks." },
+                    { "text": "Just take me to the city center.", "cultural_note": "Being flexible is helpful in big cities." }
+                  ]},
+                  { "speaker": "john", "text": "Are you a football fan?", "options": [
+                    { "text": "Yes! Who do you support?", "points": 5, "cultural_note": "Football is a big part of British culture." },
+                    { "text": "Not really.", "cultural_note": "It's okay to not be interested, but expect some banter!" }
+                  ]}
+                ]
+              }
+            ]
+          },
+          {
+            "day": 2,
+            "title": "Exploring London",
+            "location": "London Underground",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "underground_journey",
+                "background": "uk-underground.jpg",
+                "characters": [
+                  { "id": "oliver", "name": "Oliver", "avatar": "assets/characters/uk-oliver.png", "role": "Tour Guide", "bio": "A knowledgeable guide who leads tours through London's royal parks." }
+                ],
+                "dialogues": [
+                  { "speaker": "oliver", "text": "Welcome to the London Underground! Let me show you around.", "options": [
+                    { "text": "Thank you! What's the best way to navigate the Tube?", "points": 10, "cultural_note": "Showing interest in local transport is appreciated." },
+                    { "text": "I prefer walking.", "cultural_note": "Walking is common in central London." }
+                  ]},
+                  { "speaker": "oliver", "text": "Mind the gap!", "options": [
+                    { "text": "What does that mean?", "points": 5, "cultural_note": "It's a famous London phrase for train safety." },
+                    { "text": "I know, thanks!", "cultural_note": "Locals hear this every day." }
+                  ]}
+                ]
+              },
+              {
+                "type": "minigame",
+                "game": "navigate_underground",
+                "background": "uk-underground.jpg",
+                "instructions": "Navigate the London Underground to reach your destination",
+                "stations": [
+                  { "name": "King's Cross", "line": "Northern" },
+                  { "name": "Piccadilly Circus", "line": "Piccadilly" },
+                  { "name": "Westminster", "line": "Circle" }
+                ],
+                "destination": "Westminster"
+              },
+              {
+                "type": "dialogue",
+                "scenario": "park_walk",
+                "background": "uk-park.jpg",
+                "characters": [
+                  { "id": "lucy", "name": "Lucy", "avatar": "assets/characters/uk-lucy.png", "role": "Local Student", "bio": "A university student who enjoys reading in the park." }
+                ],
+                "dialogues": [
+                  { "speaker": "lucy", "text": "Do you like British weather?", "options": [
+                    { "text": "It's very different from my country!", "points": 5, "cultural_note": "Talking about the weather is a British tradition." },
+                    { "text": "I love the rain!", "cultural_note": "Some people genuinely enjoy it." }
+                  ]},
+                  { "speaker": "lucy", "text": "Have you tried afternoon tea?", "options": [
+                    { "text": "Not yet, any recommendations?", "points": 5, "cultural_note": "Afternoon tea is a classic British experience." },
+                    { "text": "Yes, it was delicious!", "cultural_note": "Scones and tea are a must-try." }
+                  ]}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "australia": {
+      "name": "Australia",
+      "flag": "assets/countries/australia.png",
+      "background": "assets/backgrounds/australia.jpg",
+      "accent": "Australian English",
+      "currency": "AUD",
+      "capital": "Canberra",
+      "population": "25 million",
+      "cultural_highlights": [
+        "Coffee culture and laid-back lifestyle",
+        "Informal communication style",
+        "Unique wildlife and outdoor lifestyle"
+      ],
+      "daily_life": {
+        "days": [
+          {
+            "day": 1,
+            "title": "First Day in Sydney",
+            "location": "Sydney Airport",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "beach_greeting",
+                "background": "australia-beach.jpg",
+                "characters": [
+                  { "id": "jack", "name": "Jack", "avatar": "assets/characters/australia-jack.png", "role": "Surf Instructor", "bio": "A laid-back surf instructor who teaches tourists to ride the waves." },
+                  { "id": "chloe", "name": "Chloe", "avatar": "assets/characters/australia-chloe.png", "role": "Barista", "bio": "The cheerful barista at a Melbourne coffee shop who loves chatting with customers." }
+                ],
+                "dialogues": [
+                  { "speaker": "jack", "text": "Welcome to Sydney! Ready to catch some waves?", "options": [
+                    { "text": "Absolutely! What's the best way to learn surfing?", "points": 10, "cultural_note": "Showing enthusiasm is appreciated in Australian culture." },
+                    { "text": "I'm ready to learn, but I'm a bit nervous.", "cultural_note": "Being honest about concerns is welcomed." }
+                  ]},
+                  { "speaker": "chloe", "text": "Would you like to try a flat white?", "options": [
+                    { "text": "Yes, please!", "points": 5, "cultural_note": "Flat white is a classic Australian coffee." },
+                    { "text": "No, thanks.", "cultural_note": "It's okay to refuse politely." }
+                  ]},
+                  { "speaker": "jack", "text": "Do you know any Aussie slang?", "options": [
+                    { "text": "G'day mate!", "points": 5, "cultural_note": "A classic greeting in Australia." },
+                    { "text": "Not really, teach me!", "cultural_note": "Locals love to share their slang." }
+                  ]}
+                ]
+              }
+            ]
+          },
+          {
+            "day": 2,
+            "title": "Beach Day Adventure",
+            "location": "Bondi Beach",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "wildlife_tour",
+                "background": "australia-wildlife.jpg",
+                "characters": [
+                  { "id": "liam", "name": "Liam", "avatar": "assets/characters/australia-liam.png", "role": "Wildlife Expert", "bio": "A passionate wildlife expert who introduces visitors to Australia's unique animals." }
+                ],
+                "dialogues": [
+                  { "speaker": "liam", "text": "Welcome to Bondi! Let me show you our unique wildlife.", "options": [
+                    { "text": "What's the most unique animal here?", "points": 10, "cultural_note": "Showing interest in local wildlife is appreciated." },
+                    { "text": "I'm afraid of snakes!", "cultural_note": "Many visitors are, and locals understand." }
+                  ]},
+                  { "speaker": "liam", "text": "Have you seen a kangaroo yet?", "options": [
+                    { "text": "Yes, they're amazing!", "points": 5, "cultural_note": "Kangaroos are iconic in Australia." },
+                    { "text": "Not yet, hope to see one soon!", "cultural_note": "Wildlife spotting is a big part of the experience." }
+                  ]}
+                ]
+              }
+            ]
+          },
+          {
+            "day": 3,
+            "title": "Outback Experience",
+            "location": "Australian Outback",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "outback_tour",
+                "background": "australia-outback.jpg",
+                "characters": [
+                  { "id": "mia", "name": "Mia", "avatar": "assets/characters/australia-mia.png", "role": "Tour Guide", "bio": "An adventurous guide who loves the outback." }
+                ],
+                "dialogues": [
+                  { "speaker": "mia", "text": "Welcome to the Outback! Have you ever seen a desert before?", "options": [
+                    { "text": "No, this is my first time!", "points": 10, "cultural_note": "The Outback is unique to Australia." },
+                    { "text": "Yes, but this is different!", "cultural_note": "Every desert has its own charm." }
+                  ]},
+                  { "speaker": "mia", "text": "Would you like to try bush tucker?", "options": [
+                    { "text": "Sure, I'm curious!", "points": 5, "cultural_note": "Bush tucker is traditional Aboriginal food." },
+                    { "text": "Maybe next time.", "cultural_note": "Not everyone is adventurous with food." }
+                  ]}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "canada": {
+      "name": "Canada",
+      "flag": "assets/countries/canada.png",
+      "background": "assets/backgrounds/canada.jpg",
+      "accent": "Canadian English",
+      "currency": "CAD",
+      "capital": "Ottawa",
+      "population": "38 million",
+      "cultural_highlights": [
+        "Bilingual culture (English and French)",
+        "Winter sports and outdoor activities",
+        "Maple syrup and poutine"
+      ],
+      "daily_life": {
+        "days": [
+          {
+            "day": 1,
+            "title": "First Day in Toronto",
+            "location": "Toronto Airport",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "ski_greeting",
+                "background": "canada-ski.jpg",
+                "characters": [
+                  { "id": "ethan", "name": "Ethan", "avatar": "assets/characters/canada-ethan.png", "role": "Ski Instructor", "bio": "An adventurous ski instructor who teaches visitors to navigate the slopes." },
+                  { "id": "sophia", "name": "Sophia", "avatar": "assets/characters/canada-sophia.png", "role": "Barista", "bio": "The friendly barista at a Vancouver coffee shop who loves chatting with customers." }
+                ],
+                "dialogues": [
+                  { "speaker": "ethan", "text": "Welcome to Canada! Ready to hit the slopes?", "options": [
+                    { "text": "Absolutely! What's the best way to learn skiing?", "points": 10, "cultural_note": "Showing enthusiasm is appreciated in Canadian culture." },
+                    { "text": "I'm ready to learn, but I'm a bit nervous.", "cultural_note": "Being honest about concerns is welcomed." }
+                  ]},
+                  { "speaker": "sophia", "text": "Would you like to try a maple latte?", "options": [
+                    { "text": "Yes, please!", "points": 5, "cultural_note": "Maple is a Canadian classic." },
+                    { "text": "No, thanks.", "cultural_note": "It's okay to refuse politely." }
+                  ]},
+                  { "speaker": "ethan", "text": "Do you like winter sports?", "options": [
+                    { "text": "Yes, I love them!", "points": 5, "cultural_note": "Canada is famous for winter sports." },
+                    { "text": "Not really, but I'm willing to try.", "cultural_note": "Trying new things is valued." }
+                  ]}
+                ]
+              }
+            ]
+          },
+          {
+            "day": 2,
+            "title": "Exploring Toronto",
+            "location": "CN Tower",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "art_tour",
+                "background": "canada-art.jpg",
+                "characters": [
+                  { "id": "lucas", "name": "Lucas", "avatar": "assets/characters/canada-lucas.png", "role": "Art Curator", "bio": "A knowledgeable art curator who introduces visitors to Canadian artists." }
+                ],
+                "dialogues": [
+                  { "speaker": "lucas", "text": "Welcome to the CN Tower! Let me show you around.", "options": [
+                    { "text": "What's the best way to explore Toronto?", "points": 10, "cultural_note": "Showing interest in local attractions is appreciated." },
+                    { "text": "I want to see the art galleries!", "cultural_note": "Toronto has a vibrant art scene." }
+                  ]},
+                  { "speaker": "lucas", "text": "Have you tried poutine yet?", "options": [
+                    { "text": "Yes, it's delicious!", "points": 5, "cultural_note": "Poutine is a Canadian comfort food." },
+                    { "text": "Not yet, but I will!", "cultural_note": "Trying local food is encouraged." }
+                  ]}
+                ]
+              }
+            ]
+          },
+          {
+            "day": 3,
+            "title": "French Canada Experience",
+            "location": "Montreal",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "montreal_visit",
+                "background": "canada-montreal.jpg",
+                "characters": [
+                  { "id": "amelie", "name": "Amélie", "avatar": "assets/characters/canada-amelie.png", "role": "Local Guide", "bio": "A bilingual guide who loves sharing French-Canadian culture." }
+                ],
+                "dialogues": [
+                  { "speaker": "amelie", "text": "Bonjour! Do you speak any French?", "options": [
+                    { "text": "A little bit!", "points": 10, "cultural_note": "French is widely spoken in Montreal." },
+                    { "text": "Not really, but I'm learning.", "cultural_note": "Locals appreciate the effort." }
+                  ]},
+                  { "speaker": "amelie", "text": "Would you like to try some local cheese?", "options": [
+                    { "text": "Yes, please!", "points": 5, "cultural_note": "Quebec is famous for its cheese." },
+                    { "text": "No, thank you.", "cultural_note": "Polite refusal is always accepted." }
+                  ]}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "new_zealand": {
+      "name": "New Zealand",
+      "flag": "assets/countries/new_zealand.png",
+      "background": "assets/backgrounds/new_zealand.jpg",
+      "accent": "New Zealand English",
+      "currency": "NZD",
+      "capital": "Wellington",
+      "population": "5 million",
+      "cultural_highlights": [
+        "Maori culture and traditions",
+        "Adventure tourism and outdoor activities",
+        "Bilingual culture (English and Maori)",
+        "Stunning natural landscapes"
+      ],
+      "daily_life": {
+        "days": [
+          {
+            "day": 1,
+            "title": "First Day in Auckland",
+            "location": "Auckland Airport",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "maori_greeting",
+                "background": "nz-maori.jpg",
+                "characters": [
+                  { "id": "mia", "name": "Mia", "avatar": "assets/characters/nz-mia.png", "role": "Maori Guide", "bio": "A passionate Maori guide who shares traditional culture and customs." },
+                  { "id": "jake", "name": "Jake", "avatar": "assets/characters/nz-jake.png", "role": "Adventure Guide", "bio": "An adventurous guide who introduces visitors to New Zealand's unique landscapes." }
+                ],
+                "dialogues": [
+                  { "speaker": "mia", "text": "Welcome to Aotearoa! Let me share our Maori culture with you.", "options": [
+                    { "text": "What's the most important aspect of Maori culture?", "points": 10, "cultural_note": "Showing interest in Maori culture is deeply appreciated." },
+                    { "text": "I want to learn a Maori word!", "cultural_note": "Locals love to teach their language." }
+                  ]},
+                  { "speaker": "jake", "text": "Do you like adventure sports?", "options": [
+                    { "text": "Yes, I love them!", "points": 5, "cultural_note": "New Zealand is famous for adventure tourism." },
+                    { "text": "Not really, but I'm willing to try.", "cultural_note": "Trying new things is valued." }
+                  ]}
+                ]
+              }
+            ]
+          },
+          {
+            "day": 2,
+            "title": "Maori Cultural Experience",
+            "location": "Rotorua",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "landscape_tour",
+                "background": "nz-landscape.jpg",
+                "characters": [
+                  { "id": "jake", "name": "Jake", "avatar": "assets/characters/nz-jake.png", "role": "Adventure Guide", "bio": "An adventurous guide who introduces visitors to New Zealand's unique landscapes." }
+                ],
+                "dialogues": [
+                  { "speaker": "jake", "text": "Welcome to Rotorua! Let me show you our unique landscapes.", "options": [
+                    { "text": "What's the most unique landscape here?", "points": 10, "cultural_note": "Showing interest in local landscapes is appreciated." },
+                    { "text": "I want to see the geysers!", "cultural_note": "Rotorua is famous for geothermal activity." }
+                  ]}
+                ]
+              }
+            ]
+          },
+          {
+            "day": 3,
+            "title": "Kiwi Wildlife Day",
+            "location": "Wellington Zoo",
+            "challenges": [
+              {
+                "type": "dialogue",
+                "scenario": "zoo_visit",
+                "background": "nz-zoo.jpg",
+                "characters": [
+                  { "id": "sophie", "name": "Sophie", "avatar": "assets/characters/nz-sophie.png", "role": "Wildlife Keeper", "bio": "A wildlife keeper who loves sharing facts about New Zealand's animals." }
+                ],
+                "dialogues": [
+                  { "speaker": "sophie", "text": "Have you seen a kiwi bird yet?", "options": [
+                    { "text": "Yes, it's so cute!", "points": 10, "cultural_note": "The kiwi is a national symbol." },
+                    { "text": "Not yet, where can I find one?", "cultural_note": "Zoos and sanctuaries are the best places." }
+                  ]},
+                  { "speaker": "sophie", "text": "Would you like to feed the animals?", "options": [
+                    { "text": "Yes, please!", "points": 5, "cultural_note": "Feeding animals is a fun part of the visit." },
+                    { "text": "Maybe next time.", "cultural_note": "Not everyone is comfortable with animals." }
+                  ]}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

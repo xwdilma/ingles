@@ -1,0 +1,864 @@
+@font-face {
+  font-family: '04b_03';
+  src: url('assets/telainicial/textos/04B_03__.TTF') format('truetype');
+}
+@font-face {
+  font-family: 'Pixelme';
+  src: url('assets/telainicial/textos/Pixelme.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* TELA DE ORIENTAÇÃO - BLOQUEIO PORTRAIT */
+.orientation-warning {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 9999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: '04b_03', monospace;
+  text-align: center;
+  padding: 20px;
+}
+
+.orientation-warning img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+  image-rendering: pixelated;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@media screen and (orientation: portrait) {
+  .orientation-warning {
+    display: flex;
+  }
+  .tela-inicial {
+    display: none !important;
+  }
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: '04b_03', monospace;
+    overflow-x: hidden;  /* apenas horizontal */
+  overflow-y: auto;   
+  background-color: black;
+  cursor: url('assets/telainicial/imagens/mouse1.png'), auto;
+}
+
+.tela-inicial {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Volta ao center */
+  padding: 10px 0;
+  overflow: hidden; /* Garante que não tenha scroll */
+}
+
+.fundo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Volta ao cover */
+  image-rendering: pixelated;
+  z-index: 0;
+  animation: backgroundScroll 15s infinite alternate ease-in-out;
+  /* Remover transform e posicionamento extra */
+}
+
+@keyframes backgroundScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-10px); }
+}
+
+/* LOGO */
+.logo-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+  flex-shrink: 0;
+  animation: logoEntrance 1.5s ease-out forwards;
+  padding: 0 10px;
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  max-width: 60vw; /* Tamanho relativo à largura da tela */
+  max-height: 30vh; /* Tamanho relativo à altura da tela */
+  min-width: 150px;
+  min-height: 80px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05) rotate(-2deg);
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+}
+
+@keyframes logoEntrance {
+  from { opacity: 0; transform: translateY(-50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* CONTAINER PRINCIPAL DOS BOTÕES */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-height: none;
+  overflow-y: auto;
+  height: auto;
+  padding: 10px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+}
+
+.menu-botoes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(45px, auto);
+  gap: 10px;
+  width: 90%;
+  max-width: 400px;
+  padding: 5px;
+  animation: fadeIn 1.5s ease-in;
+  justify-items: center;
+}
+
+
+@media screen and (min-width: 769px) {
+  .menu-botoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+
+.menu-botoes::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.botao {
+  width: 180px;
+  height: 45px;
+  background-image: url("assets/telainicial/imagens/botao1.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-shadow: 1px 1px #000;
+  transition: transform 0.2s, filter 0.2s;
+  image-rendering: pixelated;
+  font-family: '04b_03', monospace;
+  cursor: pointer;
+  margin: 0 auto;
+  background-color: transparent; /* Garante fundo transparente */
+  padding: 0; /* Remove padding extra */
+}
+
+.botao:active {
+  background-image: url("assets/telainicial/imagens/botao1.1.png");
+}
+
+.botao:hover {
+  transform: scale(1.05);
+  filter: brightness(1.3);
+}
+
+.destaque {
+  animation: brilho 2s infinite ease-in-out;
+}
+
+@keyframes brilho {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.4); }
+}
+
+.icone-botao {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+
+/* MODAL - AJUSTE PARA MOBILE */
+.modal {
+  display: none;
+  position: fixed;
+  width: 95%;
+  max-width: 400px;
+  max-height: 90vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  animation: modalIn 0.4s ease forwards;
+  overflow: auto;
+  background-color: transparent;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+.modal-fundo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  image-rendering: pixelated;
+}
+
+.pergaminho {
+  position: absolute;
+  top: -20px; /* ou ajuste fino aqui (-10px, -15px etc) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 40px;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.pergaminho img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.pergaminho span {
+  position: relative;
+  z-index: 2;
+  font-size: 1.1rem;
+  color: black;
+  text-shadow: 1px 1px #fff;
+  text-align: center;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: '04b_03', monospace;
+}
+
+.modal-conteudo {
+  position: relative;
+  padding: 40px 20px 20px 20px;
+  z-index: 2;
+  overflow-y: auto;
+  max-height: calc(70vh - 40px);
+  padding: 20px;
+  font-size: 1rem;
+  color: black;
+  text-shadow: 0.5px 0.5px white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: '04b_03', monospace;
+}
+
+.fechar {
+  background: transparent url('assets/telainicial/imagens/sair1.png') no-repeat center;
+  background-size: contain;
+  width: 17px;
+  height: 19px;
+  border: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  cursor: url('assets/telainicial/imagens/mouse2.png'), auto;
+}
+
+.volume-container {
+  position: relative;
+  width: 100px;
+  height: 16px;
+}
+
+.volume-bar {
+  background: url('assets/telainicial/imagens/volume1.png') no-repeat;
+  width: 100px;
+  height: 8px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  image-rendering: pixelated;
+}
+
+.volume-fill {
+  background: url('assets/telainicial/imagens/volume2.png') repeat-x;
+  height: 3px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 200%;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.volume-handle {
+  background: url('assets/telainicial/imagens/volume3.png') no-repeat;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 4px;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+select {
+  font-family: '04b_03', monospace;
+  font-size: 1rem;
+  border: 2px solid black;
+  padding: 4px;
+  background-color: white;
+  color: black;
+  outline: none;
+  image-rendering: pixelated;
+}
+
+/* CONTRASTE */
+.alto-contraste {
+  filter: contrast(200%) !important;
+}
+
+body.alto-contraste {
+  background-color: black !important;
+  color: yellow !important;
+}
+
+/* DALTONISMO */
+body.protanopia {
+  filter: grayscale(30%) sepia(100%) hue-rotate(-25deg);
+}
+body.deuteranopia {
+  filter: grayscale(30%) sepia(100%) hue-rotate(15deg);
+}
+body.tritanopia {
+  filter: grayscale(40%) sepia(90%) hue-rotate(120deg);
+}
+body.achromatopsia {
+  filter: grayscale(100%);
+}
+body.bluecone {
+  filter: grayscale(60%) sepia(80%) hue-rotate(180deg);
+}
+
+/* Cursor personalizado */
+button, select, .toggle, .fechar, label, span, input[type=range] {
+  cursor: url('assets/telainicial/imagens/mouse2.png'), auto !important;
+}
+
+/* Toggle wrapper */
+.toggle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.toggle {
+  width: 32px;
+  height: 18px;
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('assets/telainicial/imagens/toggleoff1.png');
+  vertical-align: middle;
+}
+.toggle.on {
+  background-image: url('assets/telainicial/imagens/toggleon1.png');
+}
+
+/* LIVRO */
+#livro-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#livro-fundo {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  max-height: 90vh;
+  image-rendering: pixelated;
+  position: relative;
+  z-index: 2;
+}
+
+#livro-texto {
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  right: 30px;
+  bottom: 60px;
+  display: flex;
+  gap: 20px;
+  overflow-y: auto;
+  font-family: 'Pixelme';
+  font-size: 13px;
+  color: black;
+  text-shadow: 1px 1px white;
+  z-index: 3;
+}
+
+.coluna-esquerda,
+.coluna-direita {
+  width: 48%;
+  height: 100%;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  text-align: justify;
+}
+.coluna-direita {
+  margin-left: 4%;
+}
+
+#livro-pagina {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-family: 'Pixelme', monospace;
+  font-size: 10px;
+  color: black;
+  z-index: 2;
+  text-shadow: 0.5px 0.5px white;
+}
+
+#livro-prev,
+#livro-next {
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  color: black;
+  background: none;
+  border: none;
+  transform: translateY(-50%);
+  z-index: 3;
+  text-shadow: 1px 1px white;
+  font-family: 'Pixelme', monospace;
+}
+#livro-prev { left: 6px; }
+#livro-next { right: 6px; }
+
+#livro-prev:hover,
+#livro-next:hover,
+#livro-fechar:hover {
+  filter: brightness(1.3);
+  transform: translateY(-50%) scale(1.2);
+}
+
+#livro-fechar {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  z-index: 3;
+  cursor: url('assets/telainicial/imagens/mouse2.png'), auto;
+  font-family: 'Pixelme', monospace;
+  text-shadow: 1px 1px white;
+}
+#livro-fechar:hover {
+  filter: brightness(1.5);
+  transform: scale(1.2);
+}
+
+/* RESPONSIVIDADE */
+@media screen and (max-width: 600px), screen and (max-height: 600px) {
+  .tela-inicial {
+    padding: 5px 0;
+    justify-content: flex-start;
+  }
+
+  .logo {
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 10px;
+  }
+
+  .menu-container {
+    max-height: 75vh;
+    padding: 5px;
+  }
+
+  .botao {
+    width: 170px;
+    height: 42px;
+    font-size: 0.9rem;
+    background-size: contain;
+  }
+
+  .modal {
+    width: 95%;
+    max-height: 90vh;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .modal-conteudo {
+    max-height: 60vh;
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+
+  #livro-container {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  #livro-texto {
+    top: 40px;
+    left: 15px;
+    right: 15px;
+    bottom: 50px;
+    font-size: 11px;
+    flex-direction: column;
+  }
+
+  .coluna-esquerda,
+  .coluna-direita {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .logo {
+    max-width: 160px;
+    max-height: 160px;
+  }
+
+      .botao {
+      width: 140px;
+      height: 40px;
+      font-size: 0.8rem;
+  }
+
+  .modal-conteudo {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .logo {
+    max-width: 150px;
+    max-height: 150px;
+    margin-bottom: 5px;
+  }
+
+  .menu-container {
+    height: 80vh;
+    overflow-y: auto;
+  }
+
+.menu-botoes {
+    grid-template-columns: 1fr;
+    max-width: 180px;
+  }
+
+  .botao {
+    width: 160px;
+    height: 38px;
+    font-size: 0.8rem;
+  }
+}
+
+.modal.active {
+  display: block;
+}
+
+/* ===== CRÉDITOS SUPER AVANÇADOS ===== */
+.credits-container {
+  height: 65vh;
+  overflow-y: auto;
+  padding: 15px;
+  background: rgba(10, 5, 0, 0.9);
+  border: 4px solid #FFD700;
+  color: #FFF;
+  font-family: 'Pixelme', monospace;
+  position: relative;
+  scroll-behavior: smooth;
+}
+
+.credits-header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.credit-icon-big {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+  image-rendering: pixelated;
+  animation: float 3s ease-in-out infinite;
+}
+
+.credits-content {
+  line-height: 1.6;
+}
+
+.credits-section {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px dashed rgba(255, 215, 0, 0.5);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.credit-icon {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+
+.credit-icon-small {
+  width: 30px;
+  height: 30px;
+  image-rendering: pixelated;
+}
+
+.credits-section h4 {
+  color: #FFD700;
+  font-size: 1.2em;
+  text-shadow: 2px 2px #000;
+  margin: 0;
+}
+
+.credit-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.heart-icon {
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+  animation: heartbeat 1.5s infinite;
+}
+
+.credit-name {
+  font-weight: bold;
+  font-size: 1em;
+  color: #FFF;
+  margin-bottom: 3px;
+}
+
+.credit-role {
+  font-size: 0.9em;
+  color: #DDD;
+}
+
+.team-credit {
+  text-align: center;
+  font-style: italic;
+  color: #AAA;
+}
+
+.credits-footer {
+  text-align: center;
+  margin: 25px 0;
+  padding-top: 15px;
+  border-top: 2px dashed rgba(255, 215, 0, 0.5);
+}
+
+.botao-recursos {
+  background: linear-gradient(to bottom, #FFD700, #FFA500);
+  color: #000;
+  border: none;
+  padding: 8px 15px;
+  font-family: '04b_03', monospace;
+  font-size: 0.9em;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.botao-recursos:hover {
+  background: linear-gradient(to bottom, #FFF, #FFD700);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.credits-thanks {
+  text-align: center;
+  color: #FFD700;
+  font-size: 1.2em;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  animation: pulse 2s infinite;
+}
+
+/* Animações */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.05); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Barra de rolagem personalizada */
+.credits-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.credits-container::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+
+.credits-container::-webkit-scrollbar-thumb {
+  background: #FFD700;
+  border-radius: 4px;
+}
+
+.credit-logo {
+  width: 120px;
+  height: auto;
+  image-rendering: pixelated;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+}
+
+.credits-footer {
+  text-align: right; /* Alinhamento à direita */
+  margin: 25px 0;
+  padding-top: 15px;
+  border-top: 2px dashed rgba(255, 215, 0, 0.5);
+}
+
+.botao-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente */
+  gap: 8px; /* Espaço entre botão e texto */
+}
+
+@media screen and (max-width: 768px) {
+  .tela-inicial {
+    overflow-y: auto;
+  }
+
+  .menu-container {
+    max-height: none;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .menu-botoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(45px, auto);
+    width: 90%;
+    max-width: 400px;
+  }
+}
+#transicaoStart {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: black;
+  opacity: 0;
+  z-index: 999;
+  transition: opacity 1s ease;
+}
+
+.fade-in {
+  opacity: 1 !important;
+}
+
+.hidden {
+  display: none;
+}
